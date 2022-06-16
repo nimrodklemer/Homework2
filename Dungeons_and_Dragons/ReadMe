@@ -1,0 +1,5 @@
+Needs to add to GameBoard a get method, to not create Tile arrays on main.
+Check all classes, fields, methods, extends and implements were added.
+add implementations of methods (some already implemented)
+add fighting system
+add visitor shtick
