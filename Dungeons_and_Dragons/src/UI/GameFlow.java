@@ -38,6 +38,7 @@ public class GameFlow {
         boards[0] = new GameBoard(newBoard);
 
          */
+        TileFactory factory = new TileFactory();
         Scanner scan = new Scanner(System.in);
         System.out.println("Welcome young traveler, please select a player character(write the number of the wanted character");
         System.out.println("1 : Jon Snow");
@@ -48,7 +49,7 @@ public class GameFlow {
         System.out.println("6 :  Bronn");
         System.out.println("7 :  Ygritte");
         int character = scan.nextInt();
-        Player player = producePlayer(character);
+        Player player = factory.producePlayer(character);
         System.out.println("You have 6 actions to use:");
         System.out.println("Move left. (for that write a)");
         System.out.println("Move right. (for that write d)");
