@@ -48,6 +48,7 @@ public class GameFlow {
         System.out.println("6 :  Bronn");
         System.out.println("7 :  Ygritte");
         int character = scan.nextInt();
+        Player player = producePlayer(character);
         System.out.println("You have 6 actions to use:");
         System.out.println("Move left. (for that write a)");
         System.out.println("Move right. (for that write d)");
@@ -71,6 +72,12 @@ public class GameFlow {
             }
 
         }
-
     }
+
+    public static Player createPlayer(){
+        if(){
+
+        }
+    }
+
 }

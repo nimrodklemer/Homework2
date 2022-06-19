@@ -1,8 +1,9 @@
 package business;
 
 public class Wall extends Tile {
-    public Wall(){
+    public Wall(Position p){
         super('#');
+        this.position = p;
     }
 
     @Override

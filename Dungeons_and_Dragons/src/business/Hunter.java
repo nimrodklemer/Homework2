@@ -20,7 +20,7 @@ public class Hunter extends Player {
         setDefensePoints(getDefensePoints() + getPlayerLevel());
 
     }
-    
+
     public void castAbility(Enemy[] enemies) {
         double minRange = -1;
         Enemy closestEnemy = null;

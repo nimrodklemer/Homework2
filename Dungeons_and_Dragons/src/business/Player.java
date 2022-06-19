@@ -109,6 +109,8 @@ public abstract class Player extends Unit implements HeroicUnit {
     }
 
     public void death(){
+        if(){
 
+        }
     }
 }

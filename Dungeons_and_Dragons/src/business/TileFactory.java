@@ -1,9 +1,6 @@
 package business;
 
-import business.Boss;
-import business.EmptySpace;
-import business.Enemy;
-import business.Hunter;
+import business.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -60,19 +57,21 @@ public class TileFactory {
 
     // TODO: Add additional callbacks of your choice
 
-    public Enemy produceEnemy(char tile, Position position, ...) {
-
+    public Enemy produceEnemy(char tile, Position position) {
+        Enemy enemy = enemiesMap.get(tile).get();
+        enemy.setPosition(position);
+        return enemy;
     }
 
-    public Player producePlayer(int idx, ...){
-
+    public Player producePlayer(int idx){
+        return playersList.get(idx).get();
     }
 
-    public EmptySpace produceEmpty(Position position, ...){
-
+    public EmptySpace produceEmpty(Position position){
+        return  new EmptySpace(position);
     }
 
-    public Wall produceWall(Position position, ...){
-
+    public Wall produceWall(Position position){
+        return new Wall(position);
     }
 }
