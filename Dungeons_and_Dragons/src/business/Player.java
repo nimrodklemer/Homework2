@@ -47,7 +47,7 @@ public abstract class Player extends Unit implements HeroicUnit {
     }
 
     public void visit(Player p){
-        ;
+        //To Do
     }
     public void visit(Enemy e){
         this.battle(e);
@@ -58,7 +58,7 @@ public abstract class Player extends Unit implements HeroicUnit {
     }
 
     public void visit(Wall w){
-        ;
+        // To Do
     }
 
 
@@ -83,7 +83,7 @@ public abstract class Player extends Unit implements HeroicUnit {
 
     @Override
     public void move() {
-        ;
+        //To Do
     }
 
     protected void battle(Enemy e){
@@ -110,7 +110,7 @@ public abstract class Player extends Unit implements HeroicUnit {
 
     public void death(){
         if(){
-
+            //To Do
         }
     }
 }
