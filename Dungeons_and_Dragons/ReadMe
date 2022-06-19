@@ -7,3 +7,5 @@ add visitor shtick
 Add to CastAbility if in range (like for Boss)
 
 Enemy function "remove" to create new EmptySpace at enemy location.
+
+Player "levelUp" needs to reduce exp value.
