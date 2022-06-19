@@ -31,7 +31,7 @@ public class Hunter extends Player {
             }
         }
         if(closestEnemy != null) {
-            this.unFairBattle(closestEnemy);
+            this.maxAttackBattle(closestEnemy);
         }
         setArrowsCount(getArrowsCount() - 1);
     }
