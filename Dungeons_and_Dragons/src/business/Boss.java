@@ -13,7 +13,7 @@ public class Boss extends Monster implements HeroicUnit {
 
 
     public void castAbility(Player p) {
-        this.unFairBattle(p);
+        this.maxAttackBattle(p);
     }
 
     protected void maxAttackBattle(Player p){
