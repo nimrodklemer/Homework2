@@ -9,26 +9,22 @@ public class Enemy extends Unit {
 
     @Override
     public void processStep() {
-
+        //To Do
     }
 
-    @Override
-    public void onDeath() {
-
-    }
 
     public void visit(Player p){
         this.battle(p);
     }
     public void visit(Enemy e){
-        ;
+        return;
     }
     public void visit(EmptySpace es){
         this.switchPosition(es);
     }
 
     public void visit(Wall w){
-        ;
+        return;
     }
 
     @Override
@@ -45,7 +41,7 @@ public class Enemy extends Unit {
         int defense = (int) Math.floor(p.getDefensePoints() * Math.random());
         p.takeDamage(attack - defense);
         if(p.getHealth() <= 0){
-            p.Death();
+            p.death();
         }
     }
 }

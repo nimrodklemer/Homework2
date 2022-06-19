@@ -53,6 +53,10 @@ public class GameFlow {
         System.out.println("6 :  Bronn");
         System.out.println("7 :  Ygritte");
         int character = scan.nextInt();
+<<<<<<< HEAD
+=======
+        Player player = factory.producePlayer(character, new Position(1,0));
+>>>>>>> 60c2cee9d3d16546f8a1fd5981791c7d92d4bca1
         System.out.println("You have 6 actions to use:");
         System.out.println("Move left. (for that write a)");
         System.out.println("Move right. (for that write d)");
@@ -62,8 +66,12 @@ public class GameFlow {
         System.out.println("do noting. (for that write q)");
 
 
+<<<<<<< HEAD
         player = factory.producePlayer(character);
         board = new GameBoard(createBoard());
+=======
+
+>>>>>>> 60c2cee9d3d16546f8a1fd5981791c7d92d4bca1
 
         boolean winLevel = false, death = false;
 
