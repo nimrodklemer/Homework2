@@ -29,7 +29,7 @@ public class Rogue extends Player {
     public void castAbility(Enemy[] enemies) {
         for(Enemy enemy:enemies){
             if (this.range(enemy) < 2){//around him
-                this.unFairBattle(enemy);
+                this.maxAttackBattle(enemy);
             }
         }
         currentEnergy = currentEnergy - cost;
