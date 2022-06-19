@@ -4,8 +4,14 @@ add implementations of methods (some already implemented)
 add fighting system
 add visitor shtick
 
-Add to CastAbility if in range (like for Boss)
+V - Enemy function "remove" to create new EmptySpace at enemy location.
 
-Enemy function "remove" to create new EmptySpace at enemy location.
+V - Player "levelUp" needs to reduce exp value.
 
-Player "levelUp" needs to reduce exp value.
+V - Delete onDeath frm all Units
+
+V - Monster move
+
+V - Boss move
+
+X - msgs and callbacks

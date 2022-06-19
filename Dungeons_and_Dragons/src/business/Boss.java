@@ -14,6 +14,7 @@ public class Boss extends Monster implements HeroicUnit {
 
     public void castAbility(Player p) {
         this.maxAttackBattle(p);
+        
     }
 
     protected void maxAttackBattle(Player p){
@@ -21,11 +22,53 @@ public class Boss extends Monster implements HeroicUnit {
         int defense = (int) Math.floor(p.getDefensePoints() * Math.random());
         p.takeDamage(attack - defense);
         if(p.getHealth() <= 0){
-            // handle death of player.
+            p.death();
         }
     }
 
     public void move(Player p){
+        if(Unit.range(this, p) < VisionRange){
+            if(combatTicks == AbilityFrequency){
+                combatTicks = 0;
+                this.castAbility(p);
+            }
+            else{
+                combatTicks+=1;
+                dx = this.position.x - p.position.x;
+                dy = this.position.y - p.position.y;
+                if(Math.abs(dx) > Math.abs(dy)){
+                    if(dx > 0)
+                        this.moveLeft();
+                    else
+                        this.moveRight();
+                }
+                else{
+                    if(dy > 0)
+                        this.moveUp();
+                    else
+                        this.moveDown();
+                }
+            }
+        }
+        else{
+            combatTicks = 0;
+            int direction = (int) Math.random()*3;
+            switch(direction){
+                case 0:
+                    this.moveLeft();
+                    break;
+                case 1:
+                    this.moveRight();
+                    break;
+                case 2:
+                    this.moveUp();
+                    break;
+                case 3:
+                    this.moveDown();
+                    break;
+
+            }
+        }
         
     }
 }

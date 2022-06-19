@@ -16,6 +16,6 @@ public class Trap extends Enemy {
         visible = true;
     }
     public void move(){
-        ;
+        return;
     }
 }
