@@ -64,7 +64,7 @@ public class TileFactory {
     }
 
     public Player producePlayer(int idx){
-        return playersList.get(idx).get();
+        return playersList.get(idx - 1).get();
     }
 
     public EmptySpace produceEmpty(Position position){
