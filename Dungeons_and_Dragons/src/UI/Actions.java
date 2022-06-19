@@ -1,4 +1,5 @@
 package UI;
+import business.*;
 
 public class Actions {
     public void moveUp(){
@@ -17,15 +18,22 @@ public class Actions {
 
     }
 
-    public void castSpecialAbility(){
+    public void castSpecialAbility(Enemy[] enemies){
+
+    }
+
+    public void castSpecialAbility(Player player){
 
     }
 
     public void doNothing(){
 
     }
+    public void enemyDoAction(Player player){
+        act(player);
+    }
 
-    public void doAction(char action){
+    public void doAction(char action, Enemy[] enemies){
         if(action == 'w'){
             moveUp();
         }
@@ -42,7 +50,7 @@ public class Actions {
             doNothing();
         }
         if(action == 'e'){
-            castSpecialAbility();
+            castSpecialAbility(enemies);
         }
     }
     public boolean isValidAction(char action){

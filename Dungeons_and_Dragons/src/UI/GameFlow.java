@@ -9,10 +9,15 @@ public class GameFlow {
 
     private static GameBoard board;
     private static int currentBoard = 0;
+    private static final TileFactory factory = new TileFactory();
+    private static Player player;
+    private static Enemy[] enemies;
+    private static Actions actions = new Actions();
 
     private static void tick(){
         for(Enemy enemy:enemies){
-            enemy.doSomething();
+            actions.doSomething(player);
+
         }
 
     }
@@ -38,7 +43,6 @@ public class GameFlow {
         boards[0] = new GameBoard(newBoard);
 
          */
-        TileFactory factory = new TileFactory();
         Scanner scan = new Scanner(System.in);
         System.out.println("Welcome young traveler, please select a player character(write the number of the wanted character");
         System.out.println("1 : Jon Snow");
@@ -49,7 +53,6 @@ public class GameFlow {
         System.out.println("6 :  Bronn");
         System.out.println("7 :  Ygritte");
         int character = scan.nextInt();
-        Player player = factory.producePlayer(character);
         System.out.println("You have 6 actions to use:");
         System.out.println("Move left. (for that write a)");
         System.out.println("Move right. (for that write d)");
@@ -59,26 +62,52 @@ public class GameFlow {
         System.out.println("do noting. (for that write q)");
 
 
+        player = factory.producePlayer(character);
+        board = new GameBoard(createBoard());
+
         boolean winLevel = false, death = false;
-        Actions actions = new Actions();
+
         while(!winLevel && !death){
             String action = scan.next();
             if (action.length() == 1 && actions.isValidAction(action.charAt(0))){
-                actions.doAction(action.charAt(0));
+                actions.doAction(action.charAt(0), enemies);
                 tick();
                 System.out.println(board.toString());
+
             }
             else{
                 System.out.println("that's not a valid action");
             }
+            System.out.println(board.toString());
 
         }
     }
+    public static Tile[][] createBoard(){
+        Tile[][] Board = new Tile[line][];
+        int j=0;
+        int count = 0;
+        for(String line:file){
+            for(int i=0; i<line.length(); i++){
+                if(line.charAt(i) == '@'){
+                    player.setPosition(new Position(j,i));
+                }
+                if(line.charAt(i) == '#'){
+                    Board[j][i] = factory.produceWall(new Position(j,i));//position may be wrong
+                }
+                if(line.charAt(i) == '_'){
+                    Board[j][i] = factory.produceEmpty(new Position(j,i));
 
-    public static Player createPlayer(){
-        if(){
-
+                }
+                else{
+                    Enemy enemy = factory.produceEnemy(line.charAt(i), new Position(j,i));
+                    Board[j][i] = enemy;
+                    enemies[count] = enemy;
+                    count++;
+                }
+            }
+            j++;
         }
+        return Board;
     }
 
 }
