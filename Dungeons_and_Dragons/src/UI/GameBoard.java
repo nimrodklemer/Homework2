@@ -20,7 +20,7 @@ public class GameBoard {
         }
     }
 
-    public Tile get(int x, int y) {
+    public static Tile get(int x, int y) {
 
         for(Tile t : tiles){
             if (t.getPosition().equals(Position.at(x, y))){
@@ -31,7 +31,7 @@ public class GameBoard {
         return null;///added
     }
 
-    public void remove(Enemy e) {
+    public static void remove(Enemy e) {
         tiles.remove(e);
         Position p = e.getPosition();
         tiles.add(new EmptySpace(p));
@@ -39,7 +39,6 @@ public class GameBoard {
 
     @Override
     public String toString() {
-        tiles = tiles.stream().sorted().collect(Collectors.toList());
-        return null;//added
+        return tiles = tiles.stream().sorted().collect(Collectors.toList());
     }
 }

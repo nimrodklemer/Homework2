@@ -45,8 +45,6 @@ public abstract class Unit extends Tile{
     // Should be automatically called once the unit finishes its turn
     public abstract void processStep();
 
-    // What happens when the unit dies
-    public abstract void onDeath();
 
     // This unit attempts to interact with another tile.
     public void interact(Tile tile){
@@ -111,7 +109,22 @@ public abstract class Unit extends Tile{
     }
     protected void moveUp(){
         Tile other = getTile(at(this.getPosition().x, this.getPosition().y + 1));
-        this.accept(other);
+        this.interact(other);
+
+    }
+    protected void moveLeft(){
+        Tile other = getTile(at(this.getPosition().x - 1, this.getPosition().y));
+        this.interact(other);
+
+    }
+    protected void moveRight(){
+        Tile other = getTile(at(this.getPosition().x + 1, this.getPosition().y));
+        this.interact(other);
+
+    }
+    protected void moveDown(){
+        Tile other = getTile(at(this.getPosition().x, this.getPosition().y - 1));
+        this.interact(other);
 
     }
 

@@ -24,15 +24,11 @@ public abstract class Player extends Unit implements HeroicUnit {
 
     }
 
-    @Override
-    public void onDeath() {
-
-    }
-
 
     public void levelUp(){
         if(experience<50*playerLevel)
             return;
+        experience-=50*playerLevel;
         playerLevel++;
         healthPool+=healthPool+10*playerLevel;
         healthAmount=healthPool;
@@ -93,6 +89,7 @@ public abstract class Player extends Unit implements HeroicUnit {
         if(e.getHealth() <= 0){
             this.addXP(e.getExperienceValue());
             this.switchPosition(e);
+            GameBoard.remove(e);
             e.remove();
         }
     }
@@ -104,7 +101,7 @@ public abstract class Player extends Unit implements HeroicUnit {
         if(e.getHealth() <= 0){
             this.addXP(e.getExperienceValue());
             this.switchPosition(e);
-            e.remove();
+            GameBoard.remove(e);
         }
     }
 
