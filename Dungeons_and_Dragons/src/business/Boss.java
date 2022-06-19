@@ -16,16 +16,16 @@ public class Boss extends Monster implements HeroicUnit {
         this.unFairBattle(p);
     }
 
-    protected void unFairBattle(Player p){
+    protected void maxAttackBattle(Player p){
         int attack = getAttackPoints();
         int defense = (int) Math.floor(p.getDefensePoints() * Math.random());
         p.takeDamage(attack - defense);
         if(p.getHealth() <= 0){
-
+            // handle death of player.
         }
     }
 
     public void move(Player p){
-
+        
     }
 }
