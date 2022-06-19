@@ -1,5 +1,11 @@
-Needs to add to GameBoard a get method, to not create Tile arrays on main.
+Needs to add to UI.GameBoard a get method, to not create business.Tile arrays on main.
 Check all classes, fields, methods, extends and implements were added.
 add implementations of methods (some already implemented)
 add fighting system
 add visitor shtick
+
+Add to CastAbility if in range (like for Boss)
+
+Enemy function "remove" to create new EmptySpace at enemy location.
+
+Player "levelUp" needs to reduce exp value.
