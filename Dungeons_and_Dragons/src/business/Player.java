@@ -97,7 +97,7 @@ public abstract class Player extends Unit implements HeroicUnit {
         }
     }
 
-    protected void unFairBattle(Enemy e){
+    protected void maxAttackBattle(Enemy e){
         int attack = getAttackPoints();
         int defense = (int) Math.floor(e.getDefensePoints() * Math.random());
         e.takeDamage(attack - defense);
