@@ -28,10 +28,19 @@ public class GameBoard {
             }
         }
         // Throw an exception if no such tile.
-        return null;///added
+        throw new IndexOutOfBoundsException("there is no such tile");
     }
 
+<<<<<<< HEAD
+    public Enemy[] getEnemies(){
+        for(int i=0; i<tiles.size(); i++){
+            if
+        }
+    }
+    public void remove(Enemy e) {
+=======
     public static void remove(Enemy e) {
+>>>>>>> 60c2cee9d3d16546f8a1fd5981791c7d92d4bca1
         tiles.remove(e);
         Position p = e.getPosition();
         tiles.add(new EmptySpace(p));
@@ -39,6 +48,18 @@ public class GameBoard {
 
     @Override
     public String toString() {
+<<<<<<< HEAD
+        String output = "";
+        tiles = tiles.stream().sorted().collect(Collectors.toList());
+        for(int i=0; i < Math.sqrt(tiles.size()); i++){
+            for(int j=0; j < Math.sqrt(tiles.size()); j++){
+                output = output + tiles.get(j*i).toString();
+            }
+            output = output + "\n";
+        }
+        return output;
+=======
         return tiles = tiles.stream().sorted().collect(Collectors.toList());
+>>>>>>> 60c2cee9d3d16546f8a1fd5981791c7d92d4bca1
     }
 }
