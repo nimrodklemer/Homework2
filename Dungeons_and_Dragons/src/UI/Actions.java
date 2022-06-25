@@ -30,7 +30,7 @@ public class Actions {
 
     }
     public void enemyDoAction(Player player){
-        act(player);
+        move(player);
     }
 
     public void doAction(char action, Enemy[] enemies){
