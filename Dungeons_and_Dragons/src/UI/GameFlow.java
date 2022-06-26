@@ -2,7 +2,15 @@ package UI;
 
 import business.*;
 
-
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Scanner;
 
 public class GameFlow {
@@ -11,13 +19,14 @@ public class GameFlow {
     private static int currentBoard = 0;
     private static final TileFactory factory = new TileFactory();
     private static Player player;
-    private static Enemy[] enemies;
-    private static Actions actions = new Actions();
+    private static ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+    private static Actions actions;
+    private static final MessageCallback messageCallback = new MessageCallback();
+    private static int character;
 
     private static void tick(){
         for(Enemy enemy:enemies){
-            actions.doSomething(player);
-
+            enemy.move(player);
         }
 
     }
@@ -52,9 +61,7 @@ public class GameFlow {
         System.out.println("5 : Arya Stark");
         System.out.println("6 :  Bronn");
         System.out.println("7 :  Ygritte");
-        int character = scan.nextInt();
-
-        Player player = factory.producePlayer(character, new Position(1,0));
+        character = scan.nextInt();
 
         System.out.println("You have 6 actions to use:");
         System.out.println("Move left. (for that write a)");
@@ -65,14 +72,18 @@ public class GameFlow {
         System.out.println("do noting. (for that write q)");
 
 
-        
-        board = new GameBoard(createBoard());
+        createBoard();
+        actions = new Actions(player);
+
+
+
+
         boolean winLevel = false, death = false;
 
-        while(!winLevel && !death){
+        while(!winLevel && player.getIsAlive()){
             String action = scan.next();
             if (action.length() == 1 && actions.isValidAction(action.charAt(0))){
-                actions.doAction(action.charAt(0), enemies);
+                actions.doAction(action.charAt(0));
                 tick();
                 System.out.println(board.toString());
 
@@ -80,36 +91,81 @@ public class GameFlow {
             else{
                 System.out.println("that's not a valid action");
             }
-            System.out.println(board.toString());
-
         }
     }
-    public static Tile[][] createBoard(){
-        Tile[][] Board = new Tile[line][];
+    public static void createBoard(){
+
+
         int j=0;
-        int count = 0;
-        for(String line:file){
-            for(int i=0; i<line.length(); i++){
-                if(line.charAt(i) == '@'){
-                    player.setPosition(new Position(j,i));
-                }
-                if(line.charAt(i) == '#'){
-                    Board[j][i] = factory.produceWall(new Position(j,i));//position may be wrong
-                }
-                if(line.charAt(i) == '_'){
-                    Board[j][i] = factory.produceEmpty(new Position(j,i));
+        String path = "C:\\hw-oop-3\\Homework2\\Dungeons_and_Dragons\\gameLevels\\level1.txt";
+        int Y =sizeY(path);
+        int X = sizeX(path);
+        Tile[][] Board = new Tile[Y][X];
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(path));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                for(int i=0; i<line.length(); i++){
+                    if(line.charAt(i) == '@'){
+                        player = factory.producePlayer(character, new Position(j,i), messageCallback, enemies);
+                        Board[j][i] = player;
+                    }
+                    else if(line.charAt(i) == '#'){
+                        Board[j][i] = factory.produceWall(new Position(j,i));//position may be wrong
+                    }
+                    else if(line.charAt(i) == '.'){
+                        Board[j][i] = factory.produceEmpty(new Position(j,i));
 
+                    }
+                    else{
+                        Enemy enemy = factory.produceEnemy(line.charAt(i), new Position(j,i), messageCallback);
+                        Board[j][i] = enemy;
+                        enemies.add(enemy);
+                    }
                 }
-                else{
-                    Enemy enemy = factory.produceEnemy(line.charAt(i), new Position(j,i));
-                    Board[j][i] = enemy;
-                    enemies[count] = enemy;
-                    count++;
-                }
+                j++;
+
             }
-            j++;
+        } catch (FileNotFoundException e) {
+            System.out.println ("File not found " + path);
+        } catch (IOException e) {
+            System.out.println(e.getMessage() + "\n" +
+                    e.getStackTrace());
         }
-        return Board;
+        board = new GameBoard(Board, Y, X);
     }
 
+    public static int sizeY(String path) {
+        int y = 0;
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(path));
+            String next;
+            while ((next = reader.readLine()) != null) {
+                y++;
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println ("File not found " + path);
+        } catch (IOException e) {
+            System.out.println(e.getMessage() + "\n" +
+                    e.getStackTrace());
+        }
+        return y;
+    }
+
+    public static int sizeX(String path) {
+        int x = 0;
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(path));
+            String next;
+            if ((next = reader.readLine()) != null) {
+                x = next.length();
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println ("File not found " + path);
+        } catch (IOException e) {
+            System.out.println(e.getMessage() + "\n" +
+                    e.getStackTrace());
+        }
+        return x;
+    }
 }

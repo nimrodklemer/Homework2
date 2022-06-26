@@ -1,9 +1,8 @@
 package business;
 
 public class EmptySpace extends Tile {
-    public EmptySpace(Position p){
+    public EmptySpace(){
         super('.');
-        this.position = p;
     }
 
     @Override

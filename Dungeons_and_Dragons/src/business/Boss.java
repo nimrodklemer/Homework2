@@ -1,6 +1,6 @@
 package business;
 
-public class Boss extends Monster implements HeroicUnit {
+public class Boss extends Monster implements HeroicUnit<Player> {
 
     Integer abilityFrequency;
     Integer combatTicks;
@@ -13,11 +13,6 @@ public class Boss extends Monster implements HeroicUnit {
 
 
     public void castAbility(Player p) {
-        this.maxAttackBattle(p);
-        
-    }
-
-    protected void maxAttackBattle(Player p){
         int attack = getAttackPoints();
         int defense = (int) Math.floor(p.getDefensePoints() * Math.random());
         p.takeDamage(attack - defense);
@@ -27,8 +22,9 @@ public class Boss extends Monster implements HeroicUnit {
     }
 
     public void move(Player p){
-        if(Unit.range(this, p) < VisionRange){
-            if(combatTicks == AbilityFrequency){
+        int dx, dy;
+        if(this.range(p) < visionRange){
+            if(combatTicks.equals(abilityFrequency)){
                 combatTicks = 0;
                 this.castAbility(p);
             }
@@ -52,21 +48,12 @@ public class Boss extends Monster implements HeroicUnit {
         }
         else{
             combatTicks = 0;
-            int direction = (int) Math.random()*3;
-            switch(direction){
-                case 0:
-                    this.moveLeft();
-                    break;
-                case 1:
-                    this.moveRight();
-                    break;
-                case 2:
-                    this.moveUp();
-                    break;
-                case 3:
-                    this.moveDown();
-                    break;
-
+            int direction = (int) (Math.random()*3);
+            switch (direction) {
+                case 0 -> this.moveLeft();
+                case 1 -> this.moveRight();
+                case 2 -> this.moveUp();
+                case 3 -> this.moveDown();
             }
         }
         

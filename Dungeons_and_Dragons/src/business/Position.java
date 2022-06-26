@@ -19,4 +19,8 @@ public class Position implements Comparable<Position>{
             return -1;
         return 1;
     }
+
+    public boolean equals(Position p){
+        return x == p.x && y == p.y;
+    }
 }

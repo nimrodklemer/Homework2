@@ -2,7 +2,7 @@ package business;
 
 public abstract class Tile implements Comparable<Tile> ,visited, visitor {
     protected char tile;
-    protected Position position;
+    public Position position;
 
     protected Tile(char tile){
         this.tile = tile;

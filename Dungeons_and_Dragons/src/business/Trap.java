@@ -15,7 +15,7 @@ public class Trap extends Enemy {
         ticksCount = 0;
         visible = true;
     }
-    public void move(){
+    public void move(Player player){
         return;
     }
 }

@@ -1,7 +1,7 @@
 package business;
+import UI.MessageCallback;
 
 import java.lang.Math;
-import javax.swing.text.Position;
 
 import static business.Position.at;
 
@@ -12,6 +12,7 @@ public abstract class Unit extends Tile{
     public Integer healthAmount;
     public Integer attackPoints;
     public Integer defensePoints;
+    public MessageCallback messageCallback;
 
     protected Unit(char Tile, String Name, int HealthPool, int Attack, int Defense) {
         super(Tile);
@@ -21,8 +22,9 @@ public abstract class Unit extends Tile{
         this.defensePoints = Defense;
     }
 
-    protected void initialize(Position position, MessageCallback messageCallback){
-        //
+    public void initialize(Position position, MessageCallback messageCallback){
+        this.initialize(position);
+        this.messageCallback = messageCallback;
     }
 
     protected int attack(){
@@ -50,7 +52,7 @@ public abstract class Unit extends Tile{
     public void interact(Tile tile){
 		tile.accept(this);
     }
-    public void move(){}
+
 
 
     // Combat against another unit.
@@ -72,7 +74,7 @@ public abstract class Unit extends Tile{
         return attackPoints;
     }
 
-    protected int getHealth() {
+    public int getHealth() {
         return healthAmount;
     }
 
@@ -107,23 +109,23 @@ public abstract class Unit extends Tile{
     protected void Heal(int addHealth) {
         setHealth(healthAmount + addHealth);
     }
-    protected void moveUp(){
-        Tile other = getTile(at(this.getPosition().x, this.getPosition().y + 1));
+    public void moveUp(){
+        Tile other = GameBoard.get(this.getPosition().x, this.getPosition().y + 1);
         this.interact(other);
 
     }
-    protected void moveLeft(){
-        Tile other = getTile(at(this.getPosition().x - 1, this.getPosition().y));
+    public void moveLeft(){
+        Tile other = GameBoard.get(this.getPosition().x - 1, this.getPosition().y);
         this.interact(other);
 
     }
-    protected void moveRight(){
-        Tile other = getTile(at(this.getPosition().x + 1, this.getPosition().y));
+    public void moveRight(){
+        Tile other = GameBoard.get(this.getPosition().x + 1, this.getPosition().y);
         this.interact(other);
 
     }
-    protected void moveDown(){
-        Tile other = getTile(at(this.getPosition().x, this.getPosition().y - 1));
+    public void moveDown(){
+        Tile other = GameBoard.get(this.getPosition().x, this.getPosition().y - 1);
         this.interact(other);
 
     }
