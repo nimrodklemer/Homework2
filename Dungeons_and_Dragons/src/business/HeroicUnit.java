@@ -1,5 +1,5 @@
 package business;
 
-public interface HeroicUnit {
-    public void castAbility();
+public interface HeroicUnit<T> {
+    public void castAbility(T Target);
 }

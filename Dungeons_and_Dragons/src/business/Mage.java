@@ -24,10 +24,7 @@ public class Mage extends Player {
         super.levelUp();
         manaPool+=25*playerLevel;
         int a = currentMana+manaPool/4, b = manaPool;
-        if(a < b)
-            currentMana=a;
-        else
-            currentMana=b;
+        currentMana = Math.min(a, b);
     }
 
     @Override
@@ -39,7 +36,7 @@ public class Mage extends Player {
     public void castAbility(Enemy[] enemies) {
         int hit = 0;
         while(hit <getHitsCount() & EnemyInRange(enemies)){
-            int x = (int)Math.floor(Math.random() * enemies.size());
+            int x = (int)Math.floor(Math.random() * enemies.length);
             Enemy enemy = enemies[x];
             int defense = (int) Math.floor(enemy.getDefensePoints() * Math.random());
             enemy.takeDamage(getSpellPower() - defense);
@@ -54,6 +51,7 @@ public class Mage extends Player {
                 return true;
             }
         }
+        return false;
     }
 
     public int getSpellRange(){

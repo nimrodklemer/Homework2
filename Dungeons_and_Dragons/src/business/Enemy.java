@@ -1,6 +1,6 @@
 package business;
 
-public class Enemy extends Unit {
+public abstract class Enemy extends Unit {
     public Integer experienceValue;
     public Enemy(char Tile, String Name, int Health, int Attack, int Defence, int ExperienceValue) {
         super(Tile, Name, Health, Attack, Defence);
@@ -44,4 +44,10 @@ public class Enemy extends Unit {
             p.death();
         }
     }
+
+    public void death(){
+        GameBoard.remove(this);
+    }
+
+    public abstract void move(Player player);
 }

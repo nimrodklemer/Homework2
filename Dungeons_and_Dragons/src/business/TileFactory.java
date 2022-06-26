@@ -1,7 +1,9 @@
 package business;
 
+import UI.MessageCallback;
 import business.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -57,23 +59,27 @@ public class TileFactory {
 
     // TODO: Add additional callbacks of your choice
 
-    public Enemy produceEnemy(char tile, Position position) {
+    public Enemy produceEnemy(char tile, Position position, MessageCallback messageCallback) {
         Enemy enemy = enemiesMap.get(tile).get();
-        enemy.setPosition(position);
+        enemy.initialize(position, messageCallback);
         return enemy;
     }
 
-    public Player producePlayer(int idx, Position position){
+    public Player producePlayer(int idx, Position position, MessageCallback messageCallback, ArrayList<Enemy> enemies){
         Player player = playersList.get(idx - 1).get();
-        player.setPosition(position);
+        player.initialize(position, messageCallback, enemies);
         return player;
     }
 
     public EmptySpace produceEmpty(Position position){
-        return  new EmptySpace(position);
+        EmptySpace e = new EmptySpace();
+        e.initialize(position);
+        return e;
     }
 
     public Wall produceWall(Position position){
-        return new Wall(position);
+        Wall w = new Wall(position);
+        w.initialize(position);
+        return w;
     }
 }
