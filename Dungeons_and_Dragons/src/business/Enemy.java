@@ -17,14 +17,12 @@ public abstract class Enemy extends Unit {
         this.battle(p);
     }
     public void visit(Enemy e){
-        return;
     }
     public void visit(EmptySpace es){
         this.switchPosition(es);
     }
 
     public void visit(Wall w){
-        return;
     }
 
     @Override
