@@ -1,5 +1,7 @@
 package business;
 
+import java.util.ArrayList;
+
 public class Hunter extends Player {
 
     Integer range;
@@ -21,19 +23,27 @@ public class Hunter extends Player {
 
     }
 
-    public void castAbility(Enemy[] enemies) {
-        double minRange = -1;
-        Enemy closestEnemy = null;
-        for(Enemy enemy:enemies){
-            if(minRange == -1 & minRange > this.range(enemy)) {
-                minRange = this.range(enemy);
-                closestEnemy = enemy;
+    public void castAbility(ArrayList<Enemy> enemies, Player p) {
+        if(arrowsCount == 0){
+            messageCallback.print("not enough arrows to activate the broken skill");
+        }
+        else {
+            double minRange = -1;
+            Enemy closestEnemy = null;
+            for (Enemy enemy : enemies) {
+                if (minRange == -1 | minRange > this.range(enemy)) {
+                    minRange = this.range(enemy);
+                    closestEnemy = enemy;
+                }
+            }
+            if (closestEnemy != null) {
+                this.maxAttackBattle(closestEnemy);
+                setArrowsCount(getArrowsCount() - 1);
+            }
+            else{
+                messageCallback.print("no enemy within range");
             }
         }
-        if(closestEnemy != null) {
-            this.maxAttackBattle(closestEnemy);
-        }
-        setArrowsCount(getArrowsCount() - 1);
     }
 
     public Integer getArrowsCount() {

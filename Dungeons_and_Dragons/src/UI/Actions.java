@@ -6,8 +6,9 @@ import java.util.ArrayList;
 public class Actions {
     Player player;
     ArrayList<Enemy> enemies;
-    public Actions(Player p){
+    public Actions(ArrayList<Enemy> enemies, Player p){
         this.player = p;
+        this.enemies = enemies;
     }
 
     public void moveUp(){
@@ -27,11 +28,11 @@ public class Actions {
     }
 
     public void castSpecialAbility(){
-        player.castAbility();
+        player.castAbility(enemies, null);
     }
 
     public void doNothing(){
-
+        ;
     }
 
     public void doAction(char action){

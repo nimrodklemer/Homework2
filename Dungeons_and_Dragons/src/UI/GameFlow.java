@@ -2,15 +2,10 @@ package UI;
 
 import business.*;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.*;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class GameFlow {
@@ -21,37 +16,21 @@ public class GameFlow {
     private static Player player;
     private static ArrayList<Enemy> enemies = new ArrayList<Enemy>();
     private static Actions actions;
-    private static final MessageCallback messageCallback = new MessageCallback();
+    private static MessageCallback messageCallback;
     private static int character;
 
+
     private static void tick(){
-        for(Enemy enemy:enemies){
+        for (Enemy enemy : enemies) {
+            if (!enemy.isAlive()) {
+                enemies.remove(enemy);
+            }
             enemy.move(player);
         }
 
     }
 
-    public static void main(String[] args) {
-        /*
-        boards = new GameBoard[1];
-        Tile[][] newBoard = new Tile[3][3];
-        //Upper walls.
-        newBoard[0][0] = new Wall(0,0);
-        newBoard[0][1] = new Wall(0,1);
-        newBoard[0][2] = new Wall(0,2);
-        //Lower walls.
-        newBoard[2][0] = new Wall(2,0);
-        newBoard[2][1] = new Wall(2,1);
-        newBoard[2][2] = new Wall(2,2);
-        //Right-side wall.
-        newBoard[1][2] = new Wall(1,2);
-        //Empty-space.
-        newBoard[1][1] = new EmptySpace(1,1);
-        //business.Player.
-        newBoard[1][0] = new Warrior(1,0, "Julius Caesar", 1);
-        boards[0] = new GameBoard(newBoard);
-
-         */
+    public static void main(String[] args) throws IOException {
         Scanner scan = new Scanner(System.in);
         System.out.println("Welcome young traveler, please select a player character(write the number of the wanted character");
         System.out.println("1 : Jon Snow");
@@ -61,8 +40,7 @@ public class GameFlow {
         System.out.println("5 : Arya Stark");
         System.out.println("6 :  Bronn");
         System.out.println("7 :  Ygritte");
-        character = scan.nextInt();
-
+        decideCharacter(scan); // pick the character
         System.out.println("You have 6 actions to use:");
         System.out.println("Move left. (for that write a)");
         System.out.println("Move right. (for that write d)");
@@ -70,34 +48,50 @@ public class GameFlow {
         System.out.println("Move down. (for that write s)");
         System.out.println("cast special ability. (for that write e)");
         System.out.println("do noting. (for that write q)");
+        System.out.println("to continue press any key");
+        scan.next();//to pause
 
+        File levelPath = new File(args[0]);
+        File levels = new File(String.valueOf(levelPath.getCanonicalFile()));
+        File[] levelsList = levels.listFiles();
+        assert levelsList != null;
+        createBoard(levelsList[currentBoard].getPath());
+        System.out.println(board.toString());
+        //the actual game
+        while(player.getIsAlive()){//continue to the next level if the player is alive(means that he win the round
+            actions = new Actions(enemies, player);
+            boolean winLevel = false;
 
-        createBoard();
-        actions = new Actions(player);
+            while(!winLevel() && player.getIsAlive()){//in level, when exit loop move level
+
+                while(true) {
+                    String action = scan.next();
+                    if (action.length() == 1 && actions.isValidAction(action.charAt(0))) {
+                        actions.doAction(action.charAt(0));
+                        tick();
+                        System.out.println(player.describe());
+                        System.out.println(board.toString());
+                        break;
+                    } else {
+                        System.out.println("that's not a valid action");
+                    }
+                }
+            }
+            currentBoard++;//go to the next level
+            createBoard(levelsList[currentBoard].getPath());
+        }
+
 
 
 
 
         boolean winLevel = false, death = false;
 
-        while(!winLevel && player.getIsAlive()){
-            String action = scan.next();
-            if (action.length() == 1 && actions.isValidAction(action.charAt(0))){
-                actions.doAction(action.charAt(0));
-                tick();
-                System.out.println(board.toString());
-
-            }
-            else{
-                System.out.println("that's not a valid action");
-            }
-        }
     }
-    public static void createBoard(){
+    public static void createBoard(String path){
 
 
         int j=0;
-        String path = "C:\\hw-oop-3\\Homework2\\Dungeons_and_Dragons\\gameLevels\\level1.txt";
         int Y =sizeY(path);
         int X = sizeX(path);
         Tile[][] Board = new Tile[Y][X];
@@ -107,7 +101,8 @@ public class GameFlow {
             while ((line = reader.readLine()) != null) {
                 for(int i=0; i<line.length(); i++){
                     if(line.charAt(i) == '@'){
-                        player = factory.producePlayer(character, new Position(j,i), messageCallback, enemies);
+                        player = factory.producePlayer(character, new Position(j,i), messageCallback);
+                        player.setMessageCallback((message) -> System.out.println(message));
                         Board[j][i] = player;
                     }
                     else if(line.charAt(i) == '#'){
@@ -119,6 +114,8 @@ public class GameFlow {
                     }
                     else{
                         Enemy enemy = factory.produceEnemy(line.charAt(i), new Position(j,i), messageCallback);
+                        enemy.setMessageCallback((message) -> System.out.println(message));
+                        enemy.setDeathCall(() -> GameBoard.remove(enemy));
                         Board[j][i] = enemy;
                         enemies.add(enemy);
                     }
@@ -167,5 +164,26 @@ public class GameFlow {
                     e.getStackTrace());
         }
         return x;
+    }
+
+    private static boolean winLevel(){
+        if(enemies.isEmpty()){
+            System.out.println("good job you finished the " + (currentBoard +1) +"prepare yourself to the next one");
+            return true;
+        }
+        return false;
+    }
+
+    private static void decideCharacter(Scanner scan){
+        String input;
+        while(true) {
+            input = scan.next();//gets character
+            if (input.length() == 1 & input.charAt(0) >= '1' & input.charAt(0) <= '7') {
+                character = input.charAt(0) - '0';
+                break;
+            } else {
+                System.out.println("Invalid input");
+            }
+        }
     }
 }

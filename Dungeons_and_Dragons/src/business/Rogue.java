@@ -1,5 +1,7 @@
 package business;
 
+import java.util.ArrayList;
+
 public class Rogue extends Player {
 
     Integer cost;
@@ -26,12 +28,21 @@ public class Rogue extends Player {
     }
 
 
-    public void castAbility(Enemy[] enemies) {
-        for(Enemy enemy:enemies){
-            if (this.range(enemy) < 2){//around him
-                this.maxAttackBattle(enemy);
+    public void castAbility(ArrayList<Enemy> enemies, Player p) {
+        if(currentEnergy < cost){
+            messageCallback.print("not enough energy to activate the broken skill");
+        }
+        else {
+            for (Enemy enemy : enemies) {
+                if (this.range(enemy) < 2) {//around him
+                    this.maxAttackBattle(enemy);
+                    currentEnergy = currentEnergy - cost;
+                }
+                else{
+                    messageCallback.print("no enemy in range for using the broken skill");
+                }
             }
         }
-        currentEnergy = currentEnergy - cost;
+
     }
 }

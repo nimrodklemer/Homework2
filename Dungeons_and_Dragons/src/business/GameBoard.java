@@ -24,9 +24,9 @@ public class GameBoard {
         this.X = X;
     }
 
-    public static Tile get(int x, int y) {
+    public static Tile get(int y, int x) {
         for(Tile t : tiles){
-            if (t.getPosition().equals(Position.at(x, y))){
+            if (t.getPosition().equals(Position.at(y, x))){
                 return t;
             }
         }

@@ -26,13 +26,14 @@ public class Monster extends Enemy {
                     this.moveDown();
             }
         }
-
-        int direction = (int) (Math.random()*3);
-        switch (direction) {
-            case 0 -> this.moveLeft();
-            case 1 -> this.moveRight();
-            case 2 -> this.moveUp();
-            case 3 -> this.moveDown();
+        else {
+            int direction = (int) (Math.random() * 3);
+            switch (direction) {
+                case 0 -> this.moveLeft();
+                case 1 -> this.moveRight();
+                case 2 -> this.moveUp();
+                case 3 -> this.moveDown();
+            }
         }
 
     }

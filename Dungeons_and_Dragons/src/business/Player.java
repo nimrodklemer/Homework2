@@ -1,14 +1,11 @@
 package business;
 
-import UI.MessageCallback;
-
 import java.util.ArrayList;
 
-public abstract class Player extends Unit implements HeroicUnit<Enemy[]> {
+public abstract class Player extends Unit implements HeroicUnit{
 
     Integer experience;
     Integer playerLevel;
-    ArrayList<Enemy> enemies;
     private boolean isAlive = true;
     public Player(String Name, int HealthPool, int Attack, int Defense) {
         super('@', Name, HealthPool, Attack, Defense);
@@ -16,11 +13,6 @@ public abstract class Player extends Unit implements HeroicUnit<Enemy[]> {
         playerLevel = 1;
     }
 
-    public void initialize(Position position, MessageCallback messageCallback, ArrayList<Enemy> enemies){
-        this.initialize(position);
-        this.messageCallback = messageCallback;
-        this.enemies = enemies;
-    }
 
     @Override
     public String describe() {
@@ -28,7 +20,7 @@ public abstract class Player extends Unit implements HeroicUnit<Enemy[]> {
     }
 
 
-    public void castAbility(){}
+    public void castAbility(ArrayList<Enemy> e, Player p){}
 
     @Override
     public void processStep() {
@@ -41,7 +33,7 @@ public abstract class Player extends Unit implements HeroicUnit<Enemy[]> {
             return;
         experience-=50*playerLevel;
         playerLevel++;
-        healthPool+=healthPool+10*playerLevel;
+        healthPool=healthPool+10*playerLevel;
         healthAmount=healthPool;
         attackPoints+=4*playerLevel;
         defensePoints+=playerLevel;
@@ -75,6 +67,7 @@ public abstract class Player extends Unit implements HeroicUnit<Enemy[]> {
 
     public void addXP(Integer xp){
         setExperience(getExperience() + xp);
+        messageCallback.print("you gained " + xp + " experience" );
         while(getExperience() >= getPlayerLevel()*50){
             levelUp();
             messageCallback.print(name + " reached level " + this.getPlayerLevel());
@@ -91,21 +84,19 @@ public abstract class Player extends Unit implements HeroicUnit<Enemy[]> {
 
 
     protected void battle(Enemy e){
-        messageCallback.print("you picked a fight with " + e.name);
         int attack = (int) Math.floor(this.getAttackPoints() * Math.random());
         int defense = (int) Math.floor(e.getDefensePoints() * Math.random());
         e.takeDamage(attack - defense);
+        messageCallback.print("You, " + name + ", picked a fight with "+ e.getName()+". " +name + "'s (you) Attack Roll " + attack + ", " +e.getName()  +"'s (Enemy) Defence Roll " +defense + ", "+ e.getName()+ " (enemy) took " + Math.max((attack - defense),0) + " damage"   );
         if(e.getHealth() <= 0){
-            messageCallback.print("you killed" + e.name );
             this.addXP(e.getExperienceValue());
             this.switchPosition(e);
-            GameBoard.remove(e);
-            enemies.remove(e);
+            e.death();
         }
     }
 
     protected void maxAttackBattle(Enemy e){
-        messageCallback.print("you bully " + e.name + " with unbalanced skills, what a hero");
+        messageCallback.print("you bully " + e.name + " with unbalanced skills (what a hero)");
         int attack = getAttackPoints();
         int defense = (int) Math.floor(e.getDefensePoints() * Math.random());
         e.takeDamage(attack - defense);
@@ -113,8 +104,8 @@ public abstract class Player extends Unit implements HeroicUnit<Enemy[]> {
             messageCallback.print("you killed" + e.name );
             this.addXP(e.getExperienceValue());
             this.switchPosition(e);
-            GameBoard.remove(e);
-            enemies.remove(e);
+            e.death();
+            e.DeathCall.call();
         }
     }
     public boolean getIsAlive(){
@@ -123,7 +114,7 @@ public abstract class Player extends Unit implements HeroicUnit<Enemy[]> {
 
     public void death(){
         this.isAlive = false;
-        messageCallback.print("so closed.... :(");
+        messageCallback.print("oh you died :)");
     }
 
 
