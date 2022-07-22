@@ -1,5 +1,7 @@
 package business;
 
+import java.util.ArrayList;
+
 public class Mage extends Player {
 
     Integer manaPool;
@@ -11,6 +13,7 @@ public class Mage extends Player {
 
     public Mage(String Name, int HealthPool, int Attack,int Defense, int ManaPool, int ManaCost, int SpellPower, int HitsCount, int AbilityRange) {
         super(Name, HealthPool, Attack, Defense);
+        manaPool = ManaPool;
         currentMana = ManaPool / 4;
         spellPower = SpellPower;
         hitsCount = HitsCount;
@@ -33,19 +36,24 @@ public class Mage extends Player {
                 currentMana, manaPool, spellPower, hitsCount, abilityRange);
     }
 
-    public void castAbility(Enemy[] enemies) {
-        int hit = 0;
-        while(hit <getHitsCount() & EnemyInRange(enemies)){
-            int x = (int)Math.floor(Math.random() * enemies.length);
-            Enemy enemy = enemies[x];
-            int defense = (int) Math.floor(enemy.getDefensePoints() * Math.random());
-            enemy.takeDamage(getSpellPower() - defense);
-
+    public void castAbility(ArrayList<Enemy> enemies, Player p) {
+        if(currentMana < manaPool){
+            messageCallback.print("not enough mana to activate the broken skill");
         }
-        setCurrentMana(getCurrentMana() - getManaCost());
+        else {
+            int hit = 0;
+            while (hit < getHitsCount() & EnemyInRange(enemies)) {
+                int x = (int) Math.floor(Math.random() * enemies.size());
+                Enemy enemy = enemies.get(x);
+                int defense = (int) Math.floor(enemy.getDefensePoints() * Math.random());
+                enemy.takeDamage(getSpellPower() - defense);
+                hit++;
+            }
+            setCurrentMana(getCurrentMana() - getManaCost());
+        }
     }
 
-    private boolean EnemyInRange(Enemy[] enemies){
+    private boolean EnemyInRange(ArrayList<Enemy> enemies){
         for(Enemy enemy:enemies){
             if(this.range(enemy) <= this.getSpellRange()){
                 return true;

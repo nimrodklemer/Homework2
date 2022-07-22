@@ -1,9 +1,6 @@
 package business;
 
-import UI.MessageCallback;
-import business.*;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -14,7 +11,7 @@ import java.util.stream.Collectors;
 public class TileFactory {
     private List<Supplier<Player>> playersList;
     private Map<Character, Supplier<Enemy>> enemiesMap;
-    private Player selected;
+    private Player selected = null;
 
     public TileFactory(){
         playersList = initPlayers();
@@ -65,10 +62,15 @@ public class TileFactory {
         return enemy;
     }
 
-    public Player producePlayer(int idx, Position position, MessageCallback messageCallback, ArrayList<Enemy> enemies){
-        Player player = playersList.get(idx - 1).get();
-        player.initialize(position, messageCallback, enemies);
-        return player;
+    public Player producePlayer(int idx, Position position, MessageCallback messageCallback){
+        if(selected == null) {
+            Player player = playersList.get(idx - 1).get();
+            selected = player;
+            player.initialize(position, messageCallback);
+            return player;
+        }
+        selected.initialize(position, messageCallback);
+        return selected;
     }
 
     public EmptySpace produceEmpty(Position position){

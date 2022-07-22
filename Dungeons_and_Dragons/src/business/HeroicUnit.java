@@ -1,5 +1,7 @@
 package business;
 
-public interface HeroicUnit<T> {
-    public void castAbility(T Target);
+import java.util.ArrayList;
+
+public interface HeroicUnit{
+    void castAbility(ArrayList<Enemy> e, Player p);
 }

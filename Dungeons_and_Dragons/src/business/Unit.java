@@ -1,9 +1,6 @@
 package business;
-import UI.MessageCallback;
 
 import java.lang.Math;
-
-import static business.Position.at;
 
 public abstract class Unit extends Tile{
 
@@ -14,10 +11,12 @@ public abstract class Unit extends Tile{
     public Integer defensePoints;
     public MessageCallback messageCallback;
 
+
     protected Unit(char Tile, String Name, int HealthPool, int Attack, int Defense) {
         super(Tile);
         this.name = Name;
         this.healthPool = HealthPool;
+        this.healthAmount = HealthPool;
         this.attackPoints = Attack;
         this.defensePoints = Defense;
     }
@@ -41,7 +40,7 @@ public abstract class Unit extends Tile{
         int  y1 = this.getPosition().y;
         int  y2 = other.getPosition().y;
 
-        return Math.sqrt(Math.pow(x1-x2,2) - Math.pow(y1-y2,2));
+        return Math.sqrt(Math.pow(x1-x2,2) + Math.pow(y1-y2,2));
     }
 
     // Should be automatically called once the unit finishes its turn
@@ -110,24 +109,31 @@ public abstract class Unit extends Tile{
         setHealth(healthAmount + addHealth);
     }
     public void moveUp(){
-        Tile other = GameBoard.get(this.getPosition().x, this.getPosition().y + 1);
+        Tile other = GameBoard.get(this.getPosition().y - 1, this.getPosition().x);
         this.interact(other);
 
     }
     public void moveLeft(){
-        Tile other = GameBoard.get(this.getPosition().x - 1, this.getPosition().y);
+        Tile other = GameBoard.get(this.getPosition().y, this.getPosition().x - 1);
         this.interact(other);
 
     }
     public void moveRight(){
-        Tile other = GameBoard.get(this.getPosition().x + 1, this.getPosition().y);
+        Tile other = GameBoard.get(this.getPosition().y , this.getPosition().x + 1);
         this.interact(other);
 
     }
     public void moveDown(){
-        Tile other = GameBoard.get(this.getPosition().x, this.getPosition().y - 1);
+        Tile other = GameBoard.get(this.getPosition().y + 1, this.getPosition().x);
         this.interact(other);
 
     }
 
+    public void print(String message){
+        messageCallback.print(message);
+    }
+
+    public void setMessageCallback(MessageCallback messageCallback) {
+        this.messageCallback = messageCallback;
+    }
 }

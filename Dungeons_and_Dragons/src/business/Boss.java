@@ -1,6 +1,8 @@
 package business;
 
-public class Boss extends Monster implements HeroicUnit<Player> {
+import java.util.ArrayList;
+
+public class Boss extends Monster implements HeroicUnit {
 
     Integer abilityFrequency;
     Integer combatTicks;
@@ -12,7 +14,7 @@ public class Boss extends Monster implements HeroicUnit<Player> {
     }
 
 
-    public void castAbility(Player p) {
+    public void castAbility(ArrayList<Enemy> enemies, Player p) {
         int attack = getAttackPoints();
         int defense = (int) Math.floor(p.getDefensePoints() * Math.random());
         p.takeDamage(attack - defense);
@@ -26,7 +28,7 @@ public class Boss extends Monster implements HeroicUnit<Player> {
         if(this.range(p) < visionRange){
             if(combatTicks.equals(abilityFrequency)){
                 combatTicks = 0;
-                this.castAbility(p);
+                this.castAbility(null, p);
             }
             else{
                 combatTicks+=1;

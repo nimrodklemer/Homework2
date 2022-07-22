@@ -12,15 +12,15 @@ public class Wall extends Tile {
     }
 
     public void visit(EmptySpace p){
-        return;
+        ;
     }
     public void visit(Player p){
-        return;
+        ;
     }
     public void visit(Enemy e){
-        return;
+        ;
     }
     public void visit(Wall w){
-        return;
+        ;
     }
 }

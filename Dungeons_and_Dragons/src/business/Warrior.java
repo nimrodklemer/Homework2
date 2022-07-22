@@ -1,5 +1,7 @@
 package business;
 
+import java.util.ArrayList;
+
 public class Warrior extends Player {
 
     Integer remainingCooldown;
@@ -25,11 +27,20 @@ public class Warrior extends Player {
         defensePoints+=1*playerLevel;
     }
 
-    public void castAbility(Enemy[] enemies) {
-        for(Enemy enemy:enemies){
-            if (this.range(enemy) < 3){
-                enemy.takeDamage(this.healthPool/10);
-                this.Heal(10 * this.getDefensePoints());
+    public void castAbility(ArrayList<Enemy> enemies, Player p) {
+        if(remainingCooldown > 0){
+            messageCallback.print("broken skill still on cooldown");
+        }
+        else {
+            for (Enemy enemy : enemies) {
+                if (this.range(enemy) < 3) {
+                    enemy.takeDamage(this.healthPool / 10);
+                    this.Heal(10 * this.getDefensePoints());
+                    remainingCooldown = abilityCooldown;
+                }
+                else{
+                    messageCallback.print("no enemy in range for using the broken skill");
+                }
             }
         }
     }
