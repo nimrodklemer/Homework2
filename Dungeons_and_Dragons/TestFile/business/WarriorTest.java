@@ -47,17 +47,15 @@ class WarriorTest {
     @Test
     void castAbility() {
         Monster m = new Monster('s', "Lannister Solider", 80, 8, 3,25, 3);
-        Monster m2 = new Monster('s', "Lannister Solider", 80, 8, 3,25, 3);
         Trap t = new Trap('Q', "Queen's business.Trap", 250, 50, 10, 100, 3, 10);
         w.setPosition(new Position(0,6));
         m.setPosition(new Position(0,0));
         t.setPosition(new Position(0,5));
         int originalPlayerHealth = w.healthAmount;
         int mH = m.getHealth(), tH = t.getHealth();
-        ArrayList<Enemy> enemies = new ArrayList<>(), enemies2 = new ArrayList<>();
+        ArrayList<Enemy> enemies = new ArrayList<>();
         enemies.add(m);
         enemies.add(t);
-        enemies2.add(m2);
 
 
         //case remainingCooldown > 0
@@ -65,9 +63,9 @@ class WarriorTest {
 
         w.castAbility(enemies, w);
         //ability on enemy beyond range
-        Assertions.assertEquals(mH, m.getHealth(), "Attacked a monster out of range with ability.");
+        Assertions.assertEquals(mH, m.getHealth(), "Attacked an enemy out of range with ability.");
         //ability on enemy in range
-        Assertions.assertEquals(mH, t.getHealth(), "Attacked a monster attack a monster in range with ability despite cooldown.");
+        Assertions.assertEquals(tH, t.getHealth(), "Attacked an enemy in range with ability despite cooldown.");
         //heal player
         Assertions.assertEquals(originalPlayerHealth, w.healthPool, "Healed warrior despite cooldown.");
 
