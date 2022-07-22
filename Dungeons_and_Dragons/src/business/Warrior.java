@@ -28,6 +28,7 @@ public class Warrior extends Player {
     }
 
     public void castAbility(ArrayList<Enemy> enemies, Player p) {
+        boolean nobody = true;
         if(remainingCooldown > 0){
             messageCallback.print("broken skill still on cooldown");
         }
@@ -37,10 +38,11 @@ public class Warrior extends Player {
                     enemy.takeDamage(this.healthPool / 10);
                     this.Heal(10 * this.getDefensePoints());
                     remainingCooldown = abilityCooldown;
+                    nobody = false;// there is enemy in range
                 }
-                else{
-                    messageCallback.print("no enemy in range for using the broken skill");
-                }
+            }
+            if(nobody){
+                messageCallback.print("no enemy in range for using the broken skill");
             }
         }
     }

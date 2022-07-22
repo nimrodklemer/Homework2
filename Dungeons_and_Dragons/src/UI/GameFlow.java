@@ -4,8 +4,6 @@ import business.*;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class GameFlow {
@@ -21,13 +19,17 @@ public class GameFlow {
 
 
     private static void tick(){
+        ArrayList<Enemy> toRemove = new ArrayList<Enemy>();
         for (Enemy enemy : enemies) {
             if (!enemy.isAlive()) {
-                enemies.remove(enemy);
-            } else {
-                enemy.move(player);
-
+                toRemove.add(enemy);
             }
+            else {
+                enemy.move(player);
+            }
+        }
+        for (Enemy enemy : toRemove){
+            enemies.remove(enemy);
         }
     }
 
