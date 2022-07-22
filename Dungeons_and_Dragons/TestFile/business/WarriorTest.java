@@ -38,9 +38,9 @@ class WarriorTest {
     @Test
     void levelUp() {
         w.levelUp();
-        Assertions.assertEquals(dp+1*pl, w.defensePoints, "Didn't update player level.");
-        Assertions.assertEquals(ap+2*pl, w.attackPoints, "Didn't update attack points.");
-        Assertions.assertEquals(hp+5*pl, w.healthPool, "Didn't update health pool.");
+        Assertions.assertEquals(dp+1*w.playerLevel, w.defensePoints, "Didn't update player level.");
+        Assertions.assertEquals(ap+2*w.playerLevel, w.attackPoints, "Didn't update attack points.");
+        Assertions.assertEquals(hp+5*w.playerLevel, w.healthPool, "Didn't update health pool.");
         Assertions.assertEquals(rc, 0, "Didn't remaining cooldown.");
     }
 

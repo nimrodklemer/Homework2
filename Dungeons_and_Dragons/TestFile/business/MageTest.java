@@ -32,7 +32,7 @@ class MageTest {
     @Test
     void levelUp() {
         m.levelUp();
-        Assertions.assertEquals(mp+25*playerLevel, m.manaPool, "Didn't update mage's mana pool.");
+        Assertions.assertEquals(mp+25*m.playerLevel, m.manaPool, "Didn't update mage's mana pool.");
         int a = cm+mp/4, b = mp;
         Assertions.assertEquals(Math.min(a, b), m.currentMana, "Didn't update mage's current mana.");
     }
