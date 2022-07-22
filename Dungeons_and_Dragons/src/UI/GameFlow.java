@@ -24,10 +24,11 @@ public class GameFlow {
         for (Enemy enemy : enemies) {
             if (!enemy.isAlive()) {
                 enemies.remove(enemy);
-            }
-            enemy.move(player);
-        }
+            } else {
+                enemy.move(player);
 
+            }
+        }
     }
 
     public static void main(String[] args) throws IOException {
@@ -80,12 +81,6 @@ public class GameFlow {
             currentBoard++;//go to the next level
             createBoard(levelsList[currentBoard].getPath());
         }
-
-
-
-
-
-        boolean winLevel = false, death = false;
 
     }
     public static void createBoard(String path){
