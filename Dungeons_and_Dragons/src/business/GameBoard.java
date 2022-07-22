@@ -41,18 +41,4 @@ public class GameBoard {
         tiles.add(factory.produceEmpty(p));
         tiles = tiles.stream().sorted().collect(Collectors.toList());
     }
-
-
-    public String toString() {
-        String output = "";
-        tiles = tiles.stream().sorted().collect(Collectors.toList());
-        for(int i=0; i < Y; i++){
-            for(int j=0; j < X; j++){
-                output = output + tiles.get(X*i + j).toString();
-            }
-            output = output + "\n";
-        }
-        return output;
-
-    }
 }
