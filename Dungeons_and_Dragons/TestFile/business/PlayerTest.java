@@ -1,9 +1,10 @@
 package business;
 
 class PlayerTest {
-
+    Player p;
     @org.junit.jupiter.api.BeforeEach
     void setUp() {
+        p = new Warrior("Jon Snow", 300, 30, 4, 3);
     }
 
     @org.junit.jupiter.api.AfterEach
@@ -12,6 +13,7 @@ class PlayerTest {
 
     @org.junit.jupiter.api.Test
     void describe() {
+
     }
 
     @org.junit.jupiter.api.Test
@@ -24,26 +26,6 @@ class PlayerTest {
 
     @org.junit.jupiter.api.Test
     void levelUp() {
-    }
-
-    @org.junit.jupiter.api.Test
-    void accept() {
-    }
-
-    @org.junit.jupiter.api.Test
-    void visit() {
-    }
-
-    @org.junit.jupiter.api.Test
-    void testVisit() {
-    }
-
-    @org.junit.jupiter.api.Test
-    void testVisit1() {
-    }
-
-    @org.junit.jupiter.api.Test
-    void testVisit2() {
     }
 
     @org.junit.jupiter.api.Test
