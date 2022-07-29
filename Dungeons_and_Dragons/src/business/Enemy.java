@@ -49,7 +49,7 @@ public abstract class Enemy extends Unit {
     }
 
     public void death(){
-        messageCallback.print("Enemy, " + name +"died" );
+        messageCallback.print("Enemy, " + name +" died" );
         DeathCall.call();
     }
 

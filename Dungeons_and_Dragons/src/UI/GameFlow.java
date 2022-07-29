@@ -81,8 +81,13 @@ public class GameFlow {
                 }
             }
             currentBoard++;//go to the next level
+            if(currentBoard > 4){
+                break;
+            }
             createBoard(levelsList[currentBoard].getPath());
         }
+        System.out.println("congratulations you completed the game");
+
 
     }
     public static void createBoard(String path){
