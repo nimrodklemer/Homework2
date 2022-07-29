@@ -20,6 +20,7 @@ class HunterTest {
         ac = h.arrowsCount;
         ap = h.attackPoints;
         dp = h.defensePoints;
+        h.setExperience(50*h.playerLevel);
     }
 
     @AfterEach
@@ -30,8 +31,8 @@ class HunterTest {
     void levelUp() {
         h.levelUp();
         Assertions.assertEquals(10*h.playerLevel, h.arrowsCount, "Didn't update hunter's arrow count.");
-        Assertions.assertEquals(ap+2*h.playerLevel, h.attackPoints, "Didn't update hunter's attack points.");
-        Assertions.assertEquals(dp+1*h.playerLevel, h.defensePoints, "Didn't update hunter's defense points.");
+        Assertions.assertEquals(ap+6*h.playerLevel, h.attackPoints, "Didn't update hunter's attack points.");
+        Assertions.assertEquals(dp+2*h.playerLevel, h.defensePoints, "Didn't update hunter's defense points.");
     }
 
     @Test

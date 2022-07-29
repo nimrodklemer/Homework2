@@ -20,7 +20,7 @@ public abstract class Player extends Unit implements HeroicUnit{
     }
 
 
-    public void castAbility(ArrayList<Enemy> e, Player p){}
+    public abstract void castAbility(ArrayList<Enemy> e, Player p);
 
     @Override
     public void processStep() {

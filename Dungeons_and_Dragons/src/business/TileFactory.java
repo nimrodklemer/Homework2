@@ -63,6 +63,8 @@ public class TileFactory {
     }
 
     public Player producePlayer(int idx, Position position, MessageCallback messageCallback){
+        if(idx > playersList.size())
+            return null;
         if(selected == null) {
             Player player = playersList.get(idx - 1).get();
             selected = player;

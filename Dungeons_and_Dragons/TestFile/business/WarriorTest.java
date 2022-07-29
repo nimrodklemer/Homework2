@@ -16,11 +16,7 @@ class WarriorTest {
     @BeforeEach
     void setUp() {
         w = new Warrior("Jon Snow", 300, 30, 4, 3);
-        pl = w.playerLevel;
-        rc = w.remainingCooldown;
-        hp = w.healthPool;
-        ap = w.attackPoints;
-        dp = w.defensePoints;
+        w.setExperience(50*pl);
     }
 
     @AfterEach
@@ -37,10 +33,15 @@ class WarriorTest {
 
     @Test
     void levelUp() {
+        pl = w.playerLevel;
+        rc = w.remainingCooldown;
+        hp = w.healthPool;
+        ap = w.attackPoints;
+        dp = w.defensePoints;
         w.levelUp();
-        Assertions.assertEquals(dp+1*w.playerLevel, w.defensePoints, "Didn't update player level.");
-        Assertions.assertEquals(ap+2*w.playerLevel, w.attackPoints, "Didn't update attack points.");
-        Assertions.assertEquals(hp+5*w.playerLevel, w.healthPool, "Didn't update health pool.");
+        Assertions.assertEquals(dp+2*w.playerLevel, w.defensePoints, "Didn't update defense points.");
+        Assertions.assertEquals(ap+6*w.playerLevel, w.attackPoints, "Didn't update attack points.");
+        Assertions.assertEquals(hp+15*w.playerLevel, w.healthPool, "Didn't update health pool.");
         Assertions.assertEquals(rc, 0, "Didn't remaining cooldown.");
     }
 

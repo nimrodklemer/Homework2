@@ -7,6 +7,12 @@ public class Position implements Comparable<Position>{
         this.x = x;
         this.y = y;
     }
+
+    public Position(Position other){
+        this.x = other.x;
+        this.y = other.y;
+    }
+
     public static Position at(int y, int x){
         return new Position(y,x);
     }

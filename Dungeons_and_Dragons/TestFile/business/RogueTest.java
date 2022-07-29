@@ -20,6 +20,7 @@ class RogueTest {
         cost = r.cost;
         currentEnergy = r.currentEnergy;
         attackPoints = r.attackPoints;
+        r.setExperience(50*r.playerLevel);
     }
 
     @AfterEach
@@ -30,7 +31,7 @@ class RogueTest {
     void levelUp() {
         r.levelUp();
         Assertions.assertEquals(100, r.cost, "Didn't update rogue's cost.");
-        Assertions.assertEquals(attackPoints+3*r.playerLevel, r.attackPoints, "Didn't update rogue's attack points.");
+        Assertions.assertEquals(attackPoints+7*r.playerLevel, r.attackPoints, "Didn't update rogue's attack points.");
     }
 
 

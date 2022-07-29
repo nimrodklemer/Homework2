@@ -9,7 +9,7 @@ public abstract class Tile implements Comparable<Tile> ,visited, visitor {
     }
 
     protected void initialize(Position position){
-        this.position = position;
+        this.position = new Position(position);
     }
 
     public char getTile() {
@@ -20,9 +20,7 @@ public abstract class Tile implements Comparable<Tile> ,visited, visitor {
         return position;
     }
 
-    public void setPosition(Position position) {
-        this.position = position;
-    }
+    public void setPosition(Position position) { this.position = new Position(position); }
 
     public void switchPosition(Tile tile){
         Position save = this.getPosition();

@@ -23,6 +23,7 @@ class MageTest {
         ar = m.abilityRange;
         playerLevel = m.playerLevel;
         cm = m.currentMana;
+        m.setExperience(50*playerLevel);
     }
 
     @AfterEach
