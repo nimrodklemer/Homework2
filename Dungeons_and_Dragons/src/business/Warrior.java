@@ -29,7 +29,7 @@ public class Warrior extends Player {
         remainingCooldown = 0;
         healthPool+=5*playerLevel;
         attackPoints+=2*playerLevel;
-        defensePoints+=1*playerLevel;
+        defensePoints+=playerLevel;
     }
 
     public void castAbility(ArrayList<Enemy> enemies, Player p) {

@@ -7,8 +7,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class MageTest {
 
     TileFactory tf = new TileFactory();
@@ -40,6 +38,7 @@ class MageTest {
     void levelUp() {
         m.levelUp();
         Assertions.assertEquals(mp+25*m.playerLevel, m.manaPool, "Didn't update mage's mana pool.");
+        mp = m.manaPool;
         int a = cm+mp/4, b = mp;
         Assertions.assertEquals(Math.min(a, b), m.currentMana, "Didn't update mage's current mana.");
     }

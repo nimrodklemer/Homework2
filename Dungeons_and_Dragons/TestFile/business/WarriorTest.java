@@ -7,8 +7,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class WarriorTest {
 
     TileFactory tf = new TileFactory();
@@ -22,7 +20,7 @@ class WarriorTest {
     @BeforeEach
     void setUp() {
         w = (Warrior)tf.producePlayer(1, new Position(0,6), ms);
-        w.setExperience(50*pl);
+        w.setExperience(50);
     }
 
     @AfterEach
