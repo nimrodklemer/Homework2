@@ -74,7 +74,7 @@ public class Mage extends Player {
 
     private boolean EnemyInRange(ArrayList<Enemy> enemies){
         for(Enemy enemy:enemies){
-            if(this.range(enemy) <= this.getSpellRange() & enemy.isAlive()){
+            if(this.range(enemy) < this.getSpellRange() & enemy.isAlive()){
                 return true;
             }
         }
@@ -84,7 +84,7 @@ public class Mage extends Player {
     private ArrayList<Enemy> ListEnemiesInRange(ArrayList<Enemy> enemies){
         ArrayList<Enemy> ListEnemy = new ArrayList<>();
         for(Enemy enemy:enemies){
-            if(this.range(enemy) <= this.getSpellRange() & enemy.isAlive()){
+            if(this.range(enemy) < this.getSpellRange() & enemy.isAlive()){
                 ListEnemy.add(enemy);
             }
         }
