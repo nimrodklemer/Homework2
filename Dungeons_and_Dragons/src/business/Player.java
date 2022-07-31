@@ -29,15 +29,14 @@ public abstract class Player extends Unit implements HeroicUnit{
 
 
     public void levelUp(){
-        if(experience<50*playerLevel)
-            return;
-        experience-=50*playerLevel;
-        playerLevel++;
-        healthPool=healthPool+10*playerLevel;
-        healthAmount=healthPool;
-        attackPoints+=4*playerLevel;
-        defensePoints+=playerLevel;
-
+        if(getExperience() >= getPlayerLevel()*50){
+            experience-=50*playerLevel;
+            playerLevel++;
+            healthPool=healthPool+10*playerLevel;
+            healthAmount=healthPool;
+            attackPoints+=4*playerLevel;
+            defensePoints+=playerLevel;
+        }
     }
 
     @Override

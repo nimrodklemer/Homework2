@@ -61,33 +61,29 @@ class MageTest {
         t.setPosition(new Position(0,5));
         int originalPlayerHealth = m.healthAmount;
         int mmH = mm.getHealth(), tH = t.getHealth();
-        ArrayList<Enemy> enemies = new ArrayList<>();
-        enemies.add(mm);
-        enemies.add(t);
+        ArrayList<Enemy> enemies1 = new ArrayList<>();
+        ArrayList<Enemy> enemies2 = new ArrayList<>();
+        enemies1.add(mm);
+        enemies2.add(t);
 
 
-        //case current mana < mana pool
-        m.currentMana = 10;
+        m.currentMana = 30;
         cm = m.currentMana;
-        m.manaPool = 20;
-        mp = m.manaPool;
+        m.manaCost = 20;
+        mp = m.manaCost;
 
-        m.castAbility(enemies, m);
+        m.castAbility(enemies1, m);
         //ability on enemy beyond range - checks if mana was used.
         Assertions.assertEquals(cm, m.currentMana, "Attacked an enemy out of range with ability.");
-        //ability on enemy within range - checks if mana was used.
-        Assertions.assertEquals(cm, m.currentMana, "Attacked an enemy in range with ability despite current mana < mana pool.");
 
-        //case current mana >= mana pool
-        m.currentMana = 20;
+        m.currentMana = 30;
         cm = m.currentMana;
-        m.manaPool = 10;
-        mp = m.manaPool;
+        m.manaCost = 20;
+        mc = m.manaCost;
 
-        m.castAbility(enemies, m);
-        //ability on enemy beyond range - checks if mana was used.
-        Assertions.assertEquals(cm, m.currentMana, "Attacked an enemy out of range with ability.");
+        m.castAbility(enemies2, m);
         //ability on enemy within range - checks if mana was used.
-        Assertions.assertEquals(cm - mc, m.currentMana, "Didn't attack an enemy in range with ability.");
+        Assertions.assertEquals(cm-mc, m.currentMana, "Attacked an enemy in range with ability despite current mana < mana pool.");
+
     }
 }
