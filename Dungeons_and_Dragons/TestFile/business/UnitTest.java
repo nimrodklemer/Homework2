@@ -44,13 +44,13 @@ class UnitTest {
     void interact3(){
         unitMonster.interact(tileEmpty);
         Assertions.assertEquals(true, unitMonster.getPosition().equals(new Position(0,1)));
-        Assertions.assertEquals(true, tileEmpty.getPosition().equals(new Position(1,1)));
+        Assertions.assertEquals(true, tileEmpty.getPosition().equals(new Position(1,0)));
     }
 
     @Test
     void interact4(){
         unitMonster.interact(tileWall);
         Assertions.assertEquals(true, unitMonster.getPosition().equals(new Position(1,0)));
-        Assertions.assertEquals(true, tileEmpty.getPosition().equals(new Position(2,1)));
+        Assertions.assertEquals(true, tileWall.getPosition().equals(new Position(2,1)));
     }
 }
