@@ -32,7 +32,7 @@ class HunterTest {
     }
 
     @Test
-    void levelUp() {
+     void levelUp() {
         h.levelUp();
         Assertions.assertEquals(10*h.playerLevel, h.arrowsCount, "Didn't update hunter's arrow count.");
         Assertions.assertEquals(ap+6*h.playerLevel, h.attackPoints, "Didn't update hunter's attack points.");

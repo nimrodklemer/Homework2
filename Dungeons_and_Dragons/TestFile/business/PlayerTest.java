@@ -3,10 +3,17 @@ package business;
 import org.junit.jupiter.api.Assertions;
 
 class PlayerTest {
+
+    TileFactory tf = new TileFactory();
+    MessageCallback ms = new MessageCallback() {
+        public void print(String message) {
+            System.out.println(message);
+        }
+    };
     Player p;
     @org.junit.jupiter.api.BeforeEach
     void setUp() {
-        p = new Warrior("Jon Snow", 300, 30, 4, 3);
+        p = tf.producePlayer(1,new Position(0,0), ms);
     }
 
     @org.junit.jupiter.api.Test
@@ -52,9 +59,9 @@ class PlayerTest {
 
     @org.junit.jupiter.api.Test
     void battle() {
-        Monster m1 = new Monster('s', "Lannister Solider1", 80, 8, 3,25, 3);
-        Monster m2 = new Monster('s', "Lannister Solider2", 80, 8, 30,25, 3);
-        Monster m3 = new Monster('s', "Lannister Solider3", 80, 8, 40,25, 3);
+        Monster m1 = (Monster)tf.produceEnemy('s', new Position(0,1), ms);
+        Monster m2 = (Monster)tf.produceEnemy('s', new Position(0,2), ms);
+        Monster m3 = (Monster)tf.produceEnemy('s', new Position(0,3), ms);
         int m1HA = m1.healthAmount, m2HA = m2.healthAmount, m3HA = m3.healthAmount;
 
         // test to attack, do damage, and not kill
@@ -80,9 +87,9 @@ class PlayerTest {
 
     @org.junit.jupiter.api.Test
     void maxAttackBattle() {
-        Monster m1 = new Monster('s', "Lannister Solider1", 80, 8, 3,25, 3);
-        Monster m2 = new Monster('s', "Lannister Solider2", 80, 8, 30,25, 3);
-        Monster m3 = new Monster('s', "Lannister Solider3", 80, 8, 40,25, 3);
+        Monster m1 = (Monster)tf.produceEnemy('s', new Position(0,1), ms);
+        Monster m2 = (Monster)tf.produceEnemy('s', new Position(0,2), ms);
+        Monster m3 = (Monster)tf.produceEnemy('s', new Position(0,3), ms);
         int m1HA = m1.healthAmount, m2HA = m2.healthAmount, m3HA = m3.healthAmount;
 
         // test to attack, do damage, and not kill

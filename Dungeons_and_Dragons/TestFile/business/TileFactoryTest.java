@@ -24,22 +24,6 @@ class TileFactoryTest {
     }
 
     @Test
-    void listPlayers() {
-        Player[] manualPL = new Player[]{new Warrior("Jon Snow", 300, 30, 4, 3),
-                new Warrior("The Hound", 400, 20, 6, 5),
-                new Mage("Melisandre", 100, 5, 1, 300, 30, 15, 5, 6),
-                new Mage("Thoros of Myr", 250, 25, 4, 150, 20, 20, 3, 4),
-                new Rogue("Arya Stark", 150, 40, 2, 20),
-                new Rogue("Bronn", 250, 35, 3, 50),
-                new Hunter("Ygritte", 220, 30, 2, 6)};
-        List<Player> playerList = tf.listPlayers();
-        Assertions.assertEquals(manualPL.length, playerList.size(), "Not all players in list.");
-        for (int i = 0; i < manualPL.length; i++){
-            Assertions.assertEquals(true, manualPL[i].equals(playerList.get(i)), "Player missing or shouldn't be in list.");
-        }
-    }
-
-    @Test
     void produceEnemy() {
         // existing enemy - success
         Enemy enemy = tf.produceEnemy('s', new Position(3,3), (message) -> System.out.println(message));

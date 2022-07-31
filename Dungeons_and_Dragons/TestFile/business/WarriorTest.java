@@ -11,11 +11,17 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class WarriorTest {
 
+    TileFactory tf = new TileFactory();
+    MessageCallback ms = new MessageCallback() {
+        public void print(String message) {
+            System.out.println(message);
+        }
+    };
     Warrior w;
     int rc, hp, ap, dp, pl;
     @BeforeEach
     void setUp() {
-        w = new Warrior("Jon Snow", 300, 30, 4, 3);
+        w = (Warrior)tf.producePlayer(1, new Position(0,6), ms);
         w.setExperience(50*pl);
     }
 
@@ -47,8 +53,8 @@ class WarriorTest {
 
     @Test
     void castAbility() {
-        Monster m = new Monster('s', "Lannister Solider", 80, 8, 3,25, 3);
-        Trap t = new Trap('Q', "Queen's business.Trap", 250, 50, 10, 100, 3, 10);
+        Monster m = (Monster)tf.produceEnemy('s', new Position(0,0), ms);
+        Trap t = (Trap)tf.produceEnemy('Q', new Position(0,5), ms);
         w.setPosition(new Position(0,6));
         m.setPosition(new Position(0,0));
         t.setPosition(new Position(0,5));

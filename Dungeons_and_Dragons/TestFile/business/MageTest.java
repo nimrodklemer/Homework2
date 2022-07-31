@@ -11,11 +11,17 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MageTest {
 
+    TileFactory tf = new TileFactory();
+    MessageCallback ms = new MessageCallback() {
+        public void print(String message) {
+            System.out.println(message);
+        }
+    };
     Mage m;
     Integer mp, mc, sp, hc, ar, cm, playerLevel;
     @BeforeEach
     void setUp() {
-        m = new Mage("Melisandre", 100, 5, 1, 300, 30, 15, 5, 6);
+        m = (Mage)tf.producePlayer(3, new Position(0,0),ms);
         mp = m.manaPool;
         mc = m.manaCost;
         sp = m.spellPower;
@@ -49,10 +55,10 @@ class MageTest {
 
     @Test
     void castAbility() {
-        Monster mm = new Monster('s', "Lannister Solider", 80, 8, 3,25, 3);
-        Trap t = new Trap('Q', "Queen's business.Trap", 250, 50, 10, 100, 3, 10);
+        Monster mm = (Monster)tf.produceEnemy('s', new Position(1,1), ms);
+        Trap t = (Trap)tf.produceEnemy('Q', new Position(2,2), ms);
         m.setPosition(new Position(0,6));
-        m.setPosition(new Position(0,0));
+        mm.setPosition(new Position(0,0));
         t.setPosition(new Position(0,5));
         int originalPlayerHealth = m.healthAmount;
         int mmH = mm.getHealth(), tH = t.getHealth();

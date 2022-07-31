@@ -11,12 +11,17 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class RogueTest {
 
-
+    TileFactory tf = new TileFactory();
+    MessageCallback ms = new MessageCallback() {
+        public void print(String message) {
+            System.out.println(message);
+        }
+    };
     Rogue r;
     Integer cost, currentEnergy, attackPoints, playerLevel;
     @BeforeEach
     void setUp() {
-        r = new Rogue("Arya Stark", 150, 40, 2, 20);
+        r = (Rogue)tf.producePlayer(5,new Position(0,0), ms);
         cost = r.cost;
         currentEnergy = r.currentEnergy;
         attackPoints = r.attackPoints;
@@ -46,8 +51,8 @@ class RogueTest {
 
     @Test
     void castAbility() {
-        Monster m = new Monster('s', "Lannister Solider", 80, 8, 3,25, 3);
-        Trap t = new Trap('Q', "Queen's business.Trap", 250, 50, 10, 100, 3, 10);
+        Monster m = (Monster)tf.produceEnemy('s', new Position(0,1),ms);
+        Trap t = (Trap)tf.produceEnemy('Q', new Position(0,2),ms);
         r.setPosition(new Position(0,6));
         m.setPosition(new Position(0,0));
         t.setPosition(new Position(0,5));

@@ -8,13 +8,19 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TrapTest {
 
+    TileFactory tf = new TileFactory();
+    MessageCallback ms = new MessageCallback() {
+        public void print(String message) {
+            System.out.println(message);
+        }
+    };
     Trap t;
     Player p;
 
     @BeforeEach
     void setUp() {
-        t = new Trap('B', "Bonus business.Trap", 1, 1, 1, 250,  1, 10);
-        p = new Warrior("Jon Snow", 300, 30, 4, 3);
+        t = (Trap)tf.produceEnemy('B', new Position(0,0),ms);
+        p = tf.producePlayer(1, new Position(0,1),ms);
     }
 
     @Test
