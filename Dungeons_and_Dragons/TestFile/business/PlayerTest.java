@@ -21,7 +21,7 @@ class PlayerTest {
         int pl = p.playerLevel, hp = p.healthPool, ap = p.attackPoints, dp = p.defensePoints, ha = p.healthAmount;
         p.setExperience(0);
         // expected failure - not enough exp.
-        p.levelUp();
+        p.addXP(1);
         Assertions.assertEquals(p.experience, p.experience, "Didn't update player experience.");
         Assertions.assertEquals(pl, p.playerLevel, "Didn't update player level.");
         Assertions.assertEquals(hp, p.healthPool, "Didn't update player health pool.");

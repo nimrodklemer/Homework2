@@ -35,7 +35,7 @@ class RogueTest {
     @Test
     void levelUp() {
         r.levelUp();
-        Assertions.assertEquals(100, r.cost, "Didn't update rogue's cost.");
+        Assertions.assertEquals(100, r.currentEnergy, "Didn't update rogue's cost.");
         Assertions.assertEquals(attackPoints+7*r.playerLevel, r.attackPoints, "Didn't update rogue's attack points.");
     }
 
