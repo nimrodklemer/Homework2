@@ -11,23 +11,23 @@ public class Actions {
         this.enemies = enemies;
     }
 
-    public void moveUp(){
+    private void moveUp(){
         player.moveUp();
     }
 
-    public void moveDown(){
+    private void moveDown(){
         player.moveDown();
     }
 
-    public void moveLeft(){
+    private void moveLeft(){
         player.moveLeft();
     }
 
-    public void moveRight(){
+    private void moveRight(){
         player.moveRight();
     }
 
-    public void castSpecialAbility(){
+    private void castSpecialAbility(){
         player.castAbility(enemies, null);
     }
 
