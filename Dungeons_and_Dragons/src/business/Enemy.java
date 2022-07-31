@@ -21,12 +21,14 @@ public abstract class Enemy extends Unit {
         this.battle(p);
     }
     public void visit(Enemy e){
+        //Do Nothing.
     }
     public void visit(EmptySpace es){
         this.switchPosition(es);
     }
 
     public void visit(Wall w){
+        //Do Nothing.
     }
 
     @Override
