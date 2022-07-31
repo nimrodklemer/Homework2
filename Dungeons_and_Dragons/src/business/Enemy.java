@@ -2,7 +2,6 @@ package business;
 
 public abstract class Enemy extends Unit {
     public Integer experienceValue;
-    public Player player;
     public deathcallback DeathCall;
 
     public Enemy(char Tile, String Name, int Health, int Attack, int Defence, int ExperienceValue) {

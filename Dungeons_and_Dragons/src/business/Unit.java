@@ -26,14 +26,6 @@ public abstract class Unit extends Tile{
         this.messageCallback = messageCallback;
     }
 
-    protected int attack(){
-		return 0;
-    }
-
-    public int defend(){
-        return 0;
-    }
-
     public double range(Unit other){
         int  x1 = this.getPosition().x;
         int  x2 = other.getPosition().x;
