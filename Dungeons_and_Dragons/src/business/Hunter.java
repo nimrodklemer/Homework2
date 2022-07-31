@@ -44,6 +44,7 @@ public class Hunter extends Player {
             messageCallback.print("not enough arrows to activate the broken skill");
         }
         else {
+            int power = getAttackPoints();
             double minRange = range;
             Enemy closestEnemy = null;
             for (Enemy enemy : enemies) {
@@ -53,7 +54,13 @@ public class Hunter extends Player {
                 }
             }
             if (closestEnemy != null) {
-                this.maxAttackBattle(closestEnemy);
+                int defense = (int) Math.floor(closestEnemy.getDefensePoints() * Math.random());
+                messageCallback.print("you dealt to " + closestEnemy.getName() + " " + Math.max(0, power - defense) + " with your special ability");
+                closestEnemy.takeDamage(power - defense);
+                if(closestEnemy.getHealth() == 0){
+                    closestEnemy.death();
+                    this.addXP(closestEnemy.getExperienceValue());
+                }
                 setArrowsCount(getArrowsCount() - 1);
             }
             else{

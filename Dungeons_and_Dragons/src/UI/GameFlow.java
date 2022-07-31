@@ -84,13 +84,14 @@ public class GameFlow {
             if(currentBoard > 3){
                 break;
             }
-            else{
+            if(player.getIsAlive()){
                 System.out.println("good job you finished the " + (currentBoard +1) +"'th prepare yourself to the next one");
             }
             createBoard(levelsList[currentBoard].getPath());
         }
-        System.out.println("congratulations you completed the game");
-
+        if(player.getIsAlive()) {
+            System.out.println("congratulations you completed the game");
+        }
 
     }
     public static void createBoard(String path){

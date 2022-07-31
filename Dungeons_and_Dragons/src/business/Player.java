@@ -89,23 +89,12 @@ public abstract class Player extends Unit implements HeroicUnit{
         messageCallback.print("You, " + name + ", picked a fight with "+ e.getName()+". " +name + "'s (you) Attack Roll " + attack + ", " +e.getName()  +"'s (Enemy) Defence Roll " +defense + ", "+ e.getName()+ " (enemy) took " + Math.max((attack - defense),0) + " damage"   );
         e.takeDamage(attack - defense);
         if(e.getHealth() == 0){
-            this.addXP(e.getExperienceValue());
             this.switchPosition(e);
             e.death();
+            this.addXP(e.getExperienceValue());
         }
     }
 
-    protected void maxAttackBattle(Enemy e){
-        messageCallback.print("you bully " + e.name + " with unbalanced skills (what a hero)");
-        int attack = getAttackPoints();
-        int defense = (int) Math.floor(e.getDefensePoints() * Math.random());
-        messageCallback.print("you dealt to " + e.getName() + " " + Math.max(0, attack - defense) + " with your special ability");
-        e.takeDamage(attack - defense);
-        if(e.getHealth() == 0){
-            this.addXP(e.getExperienceValue());
-            e.death();
-        }
-    }
     public boolean getIsAlive(){
         return isAlive;
     }

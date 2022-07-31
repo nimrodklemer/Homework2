@@ -28,6 +28,7 @@ public class Mage extends Player {
         manaPool+=25*playerLevel;
         int a = currentMana+manaPool/4, b = manaPool;
         currentMana = Math.min(a, b);
+        spellPower = spellPower + 10 * playerLevel;
     }
 
     @Override
@@ -47,18 +48,18 @@ public class Mage extends Player {
         }
         else {
             int hit = 0;
+            int power = getSpellPower();
             if(EnemyInRange(enemies)) {
                 while (hit < getHitsCount() & EnemyInRange(enemies)) {
                     ArrayList<Enemy> ListEnemy = ListEnemiesInRange(enemies);
                     int x = (int) Math.floor(Math.random() * ListEnemy.size());
                     Enemy enemy = ListEnemy.get(x);
                     int defense = (int) Math.floor(enemy.getDefensePoints() * Math.random());
-                    int power = getSpellPower();
                     messageCallback.print("you dealt to " + enemy.getName() + " " + Math.max(0, power - defense) + " with your special ability");
                     enemy.takeDamage(power - defense);
                     if(enemy.getHealth() == 0){
-                        this.addXP(enemy.getExperienceValue());
                         enemy.death();
+                        this.addXP(enemy.getExperienceValue());
                     }
                     hit++;
 
@@ -83,7 +84,7 @@ public class Mage extends Player {
     private ArrayList<Enemy> ListEnemiesInRange(ArrayList<Enemy> enemies){
         ArrayList<Enemy> ListEnemy = new ArrayList<>();
         for(Enemy enemy:enemies){
-            if(this.range(enemy) <= this.getSpellRange()){
+            if(this.range(enemy) <= this.getSpellRange() & enemy.isAlive()){
                 ListEnemy.add(enemy);
             }
         }
