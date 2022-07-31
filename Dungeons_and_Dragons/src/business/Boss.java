@@ -18,7 +18,9 @@ public class Boss extends Monster implements HeroicUnit {
         int attack = getAttackPoints();
         int defense = (int) Math.floor(p.getDefensePoints() * Math.random());
         p.takeDamage(attack - defense);
-        if(p.getHealth() <= 0){
+        messageCallback.print(this.name +" used his special ability and you took " + Math.max(0,attack - defense) + " damage");
+        p.takeDamage(attack - defense);
+        if(p.getHealth() == 0){
             p.death();
         }
     }

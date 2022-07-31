@@ -41,12 +41,13 @@ public abstract class Enemy extends Unit {
     protected void battle(Player p){
         int attack = (int) Math.floor(this.getAttackPoints() * Math.random());
         int defense = (int) Math.floor(p.getDefensePoints() * Math.random());
-        p.takeDamage(attack - defense);
         messageCallback.print("Enemy, " + name + ", picked a fight with you ("+ p.getName()+"). " + name + "'s Attack Roll " + attack + ", " +p.getName()  +"'s (you) Defence Roll " +defense + ", "+ p.getName()+ " (you) took " + Math.max((attack - defense),0) + " damage"   );
-        if(p.getHealth() <= 0){
+        p.takeDamage(attack - defense);
+        if(p.getHealth() == 0){
             p.death();
         }
     }
+
 
     public void death(){
         messageCallback.print("Enemy, " + name +" died" );

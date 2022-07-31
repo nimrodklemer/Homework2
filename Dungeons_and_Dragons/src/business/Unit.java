@@ -103,7 +103,12 @@ public abstract class Unit extends Tile{
         if(Damage>0){
             healthAmount = healthAmount - Damage;
         }
+        if(healthAmount <=0){
+            healthAmount = 0;
+        }
     }
+
+    abstract void death();
 
     protected void Heal(int addHealth) {
         setHealth(healthAmount + addHealth);

@@ -13,6 +13,10 @@ public class Rogue extends Player {
         currentEnergy = 100;
     }
 
+    @Override
+    public void processStep() {
+        currentEnergy = Math.min(currentEnergy +10 ,100);
+    }
 
 
     @Override

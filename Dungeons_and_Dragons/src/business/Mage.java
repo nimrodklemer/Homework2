@@ -31,35 +31,63 @@ public class Mage extends Player {
     }
 
     @Override
+    public void processStep() {
+        currentMana = Math.min(manaPool, currentMana + getPlayerLevel());
+    }
+
+    @Override
     public String describe() {
         return super.describe() + String.format("\t\tMana: %d\t\tMana pool: %d\t\tSpell Power: %d\t\tHits Count: %d\t\tAbility Range: %d",
                 currentMana, manaPool, spellPower, hitsCount, abilityRange);
     }
 
     public void castAbility(ArrayList<Enemy> enemies, Player p) {
-        if(currentMana < manaPool){
+        if(currentMana < manaCost){
             messageCallback.print("not enough mana to activate the broken skill");
         }
         else {
             int hit = 0;
-            while (hit < getHitsCount() & EnemyInRange(enemies)) {
-                int x = (int) Math.floor(Math.random() * enemies.size());
-                Enemy enemy = enemies.get(x);
-                int defense = (int) Math.floor(enemy.getDefensePoints() * Math.random());
-                enemy.takeDamage(getSpellPower() - defense);
-                hit++;
+            if(EnemyInRange(enemies)) {
+                while (hit < getHitsCount() & EnemyInRange(enemies)) {
+                    ArrayList<Enemy> ListEnemy = ListEnemiesInRange(enemies);
+                    int x = (int) Math.floor(Math.random() * ListEnemy.size());
+                    Enemy enemy = ListEnemy.get(x);
+                    int defense = (int) Math.floor(enemy.getDefensePoints() * Math.random());
+                    int power = getSpellPower();
+                    messageCallback.print("you dealt to " + enemy.getName() + " " + Math.max(0, power - defense) + " with your special ability");
+                    enemy.takeDamage(power - defense);
+                    if(enemy.getHealth() == 0){
+                        this.addXP(enemy.getExperienceValue());
+                        enemy.death();
+                    }
+                    hit++;
+
+                }
+                setCurrentMana(getCurrentMana() - getManaCost());
             }
-            setCurrentMana(getCurrentMana() - getManaCost());
+            else{
+                messageCallback.print("no enemy within range");
+            }
         }
     }
 
     private boolean EnemyInRange(ArrayList<Enemy> enemies){
         for(Enemy enemy:enemies){
-            if(this.range(enemy) <= this.getSpellRange()){
+            if(this.range(enemy) <= this.getSpellRange() & enemy.isAlive()){
                 return true;
             }
         }
         return false;
+    }
+
+    private ArrayList<Enemy> ListEnemiesInRange(ArrayList<Enemy> enemies){
+        ArrayList<Enemy> ListEnemy = new ArrayList<>();
+        for(Enemy enemy:enemies){
+            if(this.range(enemy) <= this.getSpellRange()){
+                ListEnemy.add(enemy);
+            }
+        }
+        return ListEnemy;
     }
 
     public int getSpellRange(){

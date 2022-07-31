@@ -50,7 +50,7 @@ public class GameFlow {
         System.out.println("Move up. (for that write w)");
         System.out.println("Move down. (for that write s)");
         System.out.println("cast special ability. (for that write e)");
-        System.out.println("do noting. (for that write q)");
+        System.out.println("do nothing. (for that write q)");
         System.out.println("to continue press any key");
         scan.next();//to pause
 
@@ -63,7 +63,6 @@ public class GameFlow {
         //the actual game
         while(player.getIsAlive()){//continue to the next level if the player is alive(means that he win the round
             actions = new Actions(enemies, player);
-            boolean winLevel = false;
 
             while(!winLevel() && player.getIsAlive()){//in level, when exit loop move level
 
@@ -72,6 +71,7 @@ public class GameFlow {
                     if (action.length() == 1 && actions.isValidAction(action.charAt(0))) {
                         actions.doAction(action.charAt(0));
                         tick();
+                        player.processStep();
                         System.out.println(player.describe());
                         System.out.println(board.toString());
                         break;
@@ -81,8 +81,11 @@ public class GameFlow {
                 }
             }
             currentBoard++;//go to the next level
-            if(currentBoard > 4){
+            if(currentBoard > 3){
                 break;
+            }
+            else{
+                System.out.println("good job you finished the " + (currentBoard +1) +"'th prepare yourself to the next one");
             }
             createBoard(levelsList[currentBoard].getPath());
         }
@@ -169,11 +172,7 @@ public class GameFlow {
     }
 
     private static boolean winLevel(){
-        if(enemies.isEmpty()){
-            System.out.println("good job you finished the " + (currentBoard +1) +"prepare yourself to the next one");
-            return true;
-        }
-        return false;
+        return enemies.isEmpty();
     }
 
     private static void decideCharacter(Scanner scan){

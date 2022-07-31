@@ -14,6 +14,11 @@ public class Warrior extends Player {
     }
 
     @Override
+    public void processStep() {
+        remainingCooldown = Math.max(0,remainingCooldown -1);
+    }
+
+    @Override
     public String describe() {
         return super.describe() + String.format("\t\tRemaining Cooldown: %d\t\tAbility Cooldown: %d", remainingCooldown, abilityCooldown);
     }
@@ -35,8 +40,15 @@ public class Warrior extends Player {
         else {
             for (Enemy enemy : enemies) {
                 if (this.range(enemy) < 3) {
+                    messageCallback.print("you dealt to " + enemy.getName() + " " + (this.healthPool / 10) + " with your special ability");
                     enemy.takeDamage(this.healthPool / 10);
+
                     this.Heal(10 * this.getDefensePoints());
+                    messageCallback.print(this.name + " (you) healed for " + (10 * this.getDefensePoints()) );
+                    if(enemy.getHealth() == 0){
+                        this.addXP(enemy.getExperienceValue());
+                        enemy.death();
+                    }
                     remainingCooldown = abilityCooldown;
                     nobody = false;// there is enemy in range
                 }

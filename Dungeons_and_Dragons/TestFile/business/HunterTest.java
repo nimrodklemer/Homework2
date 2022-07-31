@@ -1,5 +1,6 @@
 package business;
 
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -7,15 +8,18 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class HunterTest {
-
+    TileFactory tf = new TileFactory();
+    MessageCallback ms = new MessageCallback() {
+        public void print(String message) {
+            System.out.println(message);
+        }
+    };
     Hunter h;
     Integer ha, ac, ap, dp;
     @BeforeEach
     void setUp() {
-        h = new Hunter("Ygritte", 220, 30, 2, 6);
+        h = (Hunter) tf.producePlayer(7, new Position(1, 2),ms);
         ha = h.healthAmount;
         ac = h.arrowsCount;
         ap = h.attackPoints;
@@ -38,7 +42,7 @@ class HunterTest {
     @Test
     void castAbility() {
         Monster m = new Monster('s', "Lannister Solider", 80, 8, 3,25, 3);
-        Trap t = new Trap('Q', "Queen's business.Trap", 250, 50, 10, 100, 3, 10);
+        Trap t = new Trap('Q', "Queen's Trap", 250, 50, 10, 100, 3, 10);
         h.setPosition(new Position(0,6));
         m.setPosition(new Position(0,0));
         t.setPosition(new Position(0,5));
@@ -57,7 +61,7 @@ class HunterTest {
         //ability on enemy not closest
         Assertions.assertEquals(true, m.getHealth() == mH, "Attacked an enemy not closest with ability.");
         //ability closest enemy - checks the use of an arrow.
-        Assertions.assertEquals(ac, h.arrowsCount, "Attacked closest enemy with ability despite no arrows.");
+        Assertions.assertEquals(0, h.arrowsCount, "Attacked closest enemy with ability despite no arrows.");
 
         //case arrow count > 0
         h.arrowsCount = 10;

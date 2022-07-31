@@ -15,6 +15,11 @@ public class Hunter extends Player {
         ticksCount = 0;
     }
 
+    @Override
+    public String describe() {
+        return super.describe() + String.format("\t\tRange: %d\t\tArrows: %d\t\tticksCount: %d", range, arrowsCount, ticksCount);
+    }
+
     public void levelUp() {
         super.levelUp();
         this.arrowsCount = 10 * getPlayerLevel();
@@ -23,15 +28,26 @@ public class Hunter extends Player {
 
     }
 
+    @Override
+    public void processStep() {
+        if(ticksCount == 10){
+            arrowsCount = arrowsCount + getPlayerLevel();
+            ticksCount = 0;
+        }
+        else{
+            ticksCount++;
+        }
+    }
+
     public void castAbility(ArrayList<Enemy> enemies, Player p) {
         if(arrowsCount == 0){
             messageCallback.print("not enough arrows to activate the broken skill");
         }
         else {
-            double minRange = -1;
+            double minRange = range;
             Enemy closestEnemy = null;
             for (Enemy enemy : enemies) {
-                if (minRange == -1 | minRange > this.range(enemy)) {
+                if (minRange >= this.range(enemy)) {
                     minRange = this.range(enemy);
                     closestEnemy = enemy;
                 }
