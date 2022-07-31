@@ -45,7 +45,7 @@ public abstract class Player extends Unit implements HeroicUnit{
     }
 
     public void visit(Player p){
-        //To Do
+        //Do nothing.
     }
     public void visit(Enemy e){
         this.battle(e);
@@ -56,7 +56,7 @@ public abstract class Player extends Unit implements HeroicUnit{
     }
 
     public void visit(Wall w){
-        // To Do
+        //Do nothing.
     }
 
 
