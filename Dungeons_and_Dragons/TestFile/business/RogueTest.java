@@ -7,8 +7,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class RogueTest {
 
     TileFactory tf = new TileFactory();
@@ -63,31 +61,16 @@ class RogueTest {
         enemies.add(t);
 
 
-        //case current energy < cost
-        r.currentEnergy = 10;
-        currentEnergy = r.currentEnergy;
-        r.cost = 20;
-        cost = r.currentEnergy;
-
-        r.castAbility(enemies, r);
-        //ability on enemy beyond range
-        Assertions.assertEquals(mH, m.getHealth(), "Attacked an enemy out of range with ability.");
-        //ability on enemy in range
-        Assertions.assertEquals(tH, t.getHealth(), "Attacked an enemy in range with ability despite energy < cost.");
-        //heal player
-        Assertions.assertEquals(currentEnergy, r.currentEnergy, "Lowered current energy despite energy < cost.");
-
-        //case current energy >= cost
         r.currentEnergy = 40;
         currentEnergy = r.currentEnergy;
         r.cost = 20;
-        cost = r.currentEnergy;
+        cost = r.cost;
 
         r.castAbility(enemies, r);
         //ability on enemy beyond range
         Assertions.assertEquals(mH, m.getHealth(), "Attacked an enemy out of range with ability.");
-        //t is in range, so energy should have lowered.
-        Assertions.assertEquals(currentEnergy - cost, r.currentEnergy, "Lowered current energy despite energy < cost.");
+
+        Assertions.assertEquals(currentEnergy - cost, r.currentEnergy, "didn't lower current energy");
 
     }
 }
