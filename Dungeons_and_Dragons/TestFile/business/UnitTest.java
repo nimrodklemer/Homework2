@@ -37,7 +37,7 @@ class UnitTest {
     void interact2(){
         unitPlayer.interact(tileWall);
         Assertions.assertEquals(true, unitPlayer.getPosition().equals(new Position(1,1)));
-        Assertions.assertEquals(true, tileEmpty.getPosition().equals(new Position(2,1)));
+        Assertions.assertEquals(true, tileWall.getPosition().equals(new Position(2,1)));
     }
 
     @Test
@@ -50,7 +50,7 @@ class UnitTest {
     @Test
     void interact4(){
         unitMonster.interact(tileWall);
-        Assertions.assertEquals(true, unitMonster.getPosition().equals(new Position(1,1)));
+        Assertions.assertEquals(true, unitMonster.getPosition().equals(new Position(1,0)));
         Assertions.assertEquals(true, tileEmpty.getPosition().equals(new Position(2,1)));
     }
 }
